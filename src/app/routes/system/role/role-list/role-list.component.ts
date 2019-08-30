@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NotificationService } from '@core';
-import { STColumn, STColumnButton, STData } from '@delon/abc';
+import { STColumn, STColumnButton, STData, STComponent } from '@delon/abc';
 import { deepCopy } from '@delon/util';
 import { BaseComponent } from '@layout/base.component';
 import { StatusColumnBadge } from '@shared';
@@ -27,7 +27,14 @@ export class RoleListComponent extends BaseComponent implements OnInit {
   role: any;
   keyword = '';
   columns: STColumn[] = [
-    { title: '角色名称', index: 'name', default: '-' },
+    {
+      title: '角色名称',
+      index: 'name',
+      type: 'link',
+      click: (record: STData, instance?: STComponent) => {
+        this.edit(record);
+      },
+    },
     { title: '状态', index: 'status', type: 'badge', badge: StatusColumnBadge },
     {
       title: '操作',
@@ -59,10 +66,12 @@ export class RoleListComponent extends BaseComponent implements OnInit {
           },
         },
         {
-          icon: '删除',
+          text: '删除',
+          icon: 'delete',
           type: 'del',
           click: (record, _modal, comp) => {
-            this.delete(_modal);
+            this.role = record;
+            this.delete(record);
           },
           iif: (item: STData, btn: STColumnButton, column: STColumn) => {
             return true;
@@ -71,7 +80,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
       ],
     },
   ];
-  list = [];
+  list = [{ id: 1, name: 'aaa', status: 1 }, { id: 2, name: 'aaa', status: 1 }];
 
   statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
 
