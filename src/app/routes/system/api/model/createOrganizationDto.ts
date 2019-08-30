@@ -27,4 +27,8 @@ export interface CreateOrganizationDto {
      * 排序号
      */
     sortNo?: number;
+    /**
+     * 节点语义ID
+     */
+    cascadeId?: string;
 }

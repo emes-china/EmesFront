@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeletePostDto } from './deletePostDto';
+import { UpdateOrganizationDto } from './updateOrganizationDto';
 
 
 export interface Request9 { 
-    request?: DeletePostDto;
+    request?: UpdateOrganizationDto;
 }

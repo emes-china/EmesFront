@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeleteUserDto } from './deleteUserDto';
+import { AuthUserDto } from './authUserDto';
 
 
 export interface Request19 { 
-    request?: DeleteUserDto;
+    request?: AuthUserDto;
 }

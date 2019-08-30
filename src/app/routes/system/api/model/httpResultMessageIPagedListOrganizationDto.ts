@@ -8,9 +8,12 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeletePostDto } from './deletePostDto';
+import { OrganizationDto } from './organizationDto';
 
 
-export interface Request11 { 
-    request?: DeletePostDto;
+export interface HttpResultMessageIPagedListOrganizationDto { 
+    entity?: Array<OrganizationDto>;
+    isSucceed?: boolean;
+    message?: string;
+    statusCode?: number;
 }

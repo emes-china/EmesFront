@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeletePostDto } from './deletePostDto';
+import { QueryUserDto } from './queryUserDto';
 
 
-export interface Request11 { 
-    request?: DeletePostDto;
+export interface Request22 { 
+    request?: QueryUserDto;
 }

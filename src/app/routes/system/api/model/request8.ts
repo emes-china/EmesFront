@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreatePostDto } from './createPostDto';
+import { SubOrganizationDto } from './subOrganizationDto';
 
 
 export interface Request8 { 
-    request?: CreatePostDto;
+    request?: SubOrganizationDto;
 }

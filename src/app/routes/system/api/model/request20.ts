@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { QueryUserDto } from './queryUserDto';
+import { CreateUserDto } from './createUserDto';
 
 
 export interface Request20 { 
-    request?: QueryUserDto;
+    request?: CreateUserDto;
 }

@@ -8,9 +8,14 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeletePostDto } from './deletePostDto';
 
 
-export interface Request11 { 
-    request?: DeletePostDto;
+/**
+ * 查询组织机构Dto  Desc:查询组织机构领域模型Dto
+ */
+export interface SubOrganizationDto { 
+    id?: string;
+    name?: string;
+    pageIndex?: number;
+    pageSize?: number;
 }

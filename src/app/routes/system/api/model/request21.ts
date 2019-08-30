@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdateUserDto } from './updateUserDto';
+import { DeleteUserDto } from './deleteUserDto';
 
 
 export interface Request21 { 
-    request?: UpdateUserDto;
+    request?: DeleteUserDto;
 }

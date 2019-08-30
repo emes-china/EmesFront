@@ -4,6 +4,8 @@ import { BaseComponent } from '@layout/base.component';
 import { Router } from '@angular/router';
 import { IOrganizationService } from '@System';
 import { NotificationService, ArrayService } from '@core';
+import { STColumn } from '@delon/abc';
+import { StatusColumnBadge } from '@shared';
 
 @Component({
   selector: 'zc-organization-list',
@@ -22,6 +24,28 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
   };
   org;
   keyword = '';
+  columns: STColumn[] = [
+    { title: '层级ID', index: 'createId', default: '-' },
+    { title: '名称', index: '上级部门' },
+    { title: '状态', index: 'badge', type: 'badge', badge: StatusColumnBadge },
+    {
+      title: '操作',
+      buttons: [
+        {
+          text: '编辑',
+          icon: 'edit',
+          type: 'link',
+          click: (_record, modal) => {},
+        },
+        {
+          icon: 'delete',
+          type: 'del',
+          click: (record, _modal, comp) => {},
+        },
+      ],
+    },
+  ];
+  list = [];
   constructor(
     injector: Injector,
     private notifySrv: NotificationService,
@@ -45,7 +69,7 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
     this.getList();
   }
   getList() {
-    this.orgSrv.query({ request: { name: this.keyword } }).subscribe((x: any) => {
+    this.orgSrv.query({ request: { name: '' } }).subscribe((x: any) => {
       if (!x) return;
       this.nodes = this.arrSrv.arrToTreeNode(x, {
         parentIdMapName: 'parentId',
@@ -58,6 +82,14 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
     });
   }
 
+  getSubItem() {
+    this.orgSrv
+      .subitem({ request: { id: this.org.id, name: this.keyword, pageIndex: 0, pageSize: 10 } })
+      .subscribe((x: any) => {
+        if (!x) return;
+      });
+  }
+
   add($event) {
     this.org = this.initialOrg;
   }
@@ -65,6 +97,10 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
     const pid = this.org.id;
     this.org = this.initialOrg;
     this.org.parentId = pid;
+  }
+  select($event) {
+    this.org = $event.node.origin;
+    this.getSubItem();
   }
   edit($event) {
     this.org = $event.node.origin;

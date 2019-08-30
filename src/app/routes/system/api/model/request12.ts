@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateRoleDto } from './createRoleDto';
+import { QueryPostDto } from './queryPostDto';
 
 
 export interface Request12 { 
-    request?: CreateRoleDto;
+    request?: QueryPostDto;
 }
