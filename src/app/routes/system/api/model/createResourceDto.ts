@@ -11,15 +11,24 @@
 
 
 /**
- * 创建角色Dto  Desc:创建角色领域模型Dto
+ * 创建资源Dto  Desc:创建资源领域模型Dto
  */
-export interface CreateRoleDto { 
+export interface CreateResourceDto { 
     /**
-     * 角色名称
+     * 上级机构  Desc:上级机构
      */
+    parentId?: string;
     name?: string;
     /**
      * 当前状态
      */
     status?: number;
+    /**
+     * 排序号
+     */
+    sortNo?: number;
+    /**
+     * 节点语义ID
+     */
+    cascadeId?: string;
 }

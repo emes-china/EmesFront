@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { QueryResourceDto } from './queryResourceDto';
+import { AuthUserDto } from './authUserDto';
 
 
-export interface Request17 { 
-    request?: QueryResourceDto;
+export interface Request25 { 
+    request?: AuthUserDto;
 }

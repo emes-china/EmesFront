@@ -14,4 +14,5 @@
  * 查询角色Dto  Desc:查询角色领域模型Dto
  */
 export interface QueryRoleDto { 
+    name?: string;
 }

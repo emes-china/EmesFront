@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { AuthUserDto } from './authUserDto';
+import { UpdateResourceDto } from './updateResourceDto';
 
 
 export interface Request19 { 
-    request?: AuthUserDto;
+    request?: UpdateResourceDto;
 }

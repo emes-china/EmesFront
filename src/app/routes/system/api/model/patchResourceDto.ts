@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { QueryResourceDto } from './queryResourceDto';
 
 
-export interface Request17 { 
-    request?: QueryResourceDto;
+export interface PatchResourceDto { 
+    status?: number;
+    id?: string;
 }

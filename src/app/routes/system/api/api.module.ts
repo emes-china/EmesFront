@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { IModuleService } from './api/iModule.service';
 import { IOrganizationService } from './api/iOrganization.service';
 import { IPostService } from './api/iPost.service';
+import { IResourceService } from './api/iResource.service';
 import { IRoleService } from './api/iRole.service';
 import { ITestService } from './api/iTest.service';
 import { IUserService } from './api/iUser.service';
@@ -26,6 +27,7 @@ import { IUserService } from './api/iUser.service';
     IModuleService,
     IOrganizationService,
     IPostService,
+    IResourceService,
     IRoleService,
     ITestService,
     IUserService ]

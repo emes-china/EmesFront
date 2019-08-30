@@ -14,4 +14,5 @@
  * 查询用户Dto  Desc:查询用户领域模型Dto
  */
 export interface QueryUserDto { 
+    name?: string;
 }

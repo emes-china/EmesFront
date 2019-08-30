@@ -22,7 +22,7 @@ import {
 import { CustomHttpUrlEncodingCodec } from "../encoder";
 
 import { HttpResultMessageUserDto } from '../model/httpResultMessageUserDto';
-import { Request18 } from '../model/request18';
+import { Request24 } from '../model/request24';
  
 
 
@@ -42,10 +42,10 @@ export class ITestService {
      * @param request 
 * @param servicekey 
      */
-    public get(request: Request18, servicekey?: any, observe?: 'body'): Observable<HttpResultMessageUserDto>;
-    public get(request: Request18, servicekey?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageUserDto>>;
-    public get(request: Request18, servicekey?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageUserDto>>;
-    public get(request: Request18, servicekey?: any, observe: any = 'body'): Observable<any> {
+    public get(request: Request24, servicekey?: any, observe?: 'body'): Observable<HttpResultMessageUserDto>;
+    public get(request: Request24, servicekey?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageUserDto>>;
+    public get(request: Request24, servicekey?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageUserDto>>;
+    public get(request: Request24, servicekey?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling get.');

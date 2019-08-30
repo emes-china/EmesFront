@@ -8,9 +8,11 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { QueryResourceDto } from './queryResourceDto';
 
 
-export interface Request17 { 
-    request?: QueryResourceDto;
+/**
+ * 查询资源Dto  Desc:查询资源领域模型Dto
+ */
+export interface QueryResourceDto { 
+    name?: string;
 }

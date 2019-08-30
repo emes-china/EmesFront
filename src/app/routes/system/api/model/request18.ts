@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { TestDto } from './testDto';
+import { SubResourceDto } from './subResourceDto';
 
 
 export interface Request18 { 
-    request?: TestDto;
+    request?: SubResourceDto;
 }

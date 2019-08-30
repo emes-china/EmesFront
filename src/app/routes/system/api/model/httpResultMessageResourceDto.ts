@@ -8,9 +8,12 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { QueryResourceDto } from './queryResourceDto';
+import { ResourceDto } from './resourceDto';
 
 
-export interface Request17 { 
-    request?: QueryResourceDto;
+export interface HttpResultMessageResourceDto { 
+    entity?: ResourceDto;
+    isSucceed?: boolean;
+    message?: string;
+    statusCode?: number;
 }

@@ -15,16 +15,12 @@
  */
 export interface UpdateRoleDto { 
     /**
-     * 名称  名称
+     * 角色名称
      */
-    name: string;
+    name?: string;
     /**
-     * 备注  岗位编备注号
+     * 当前状态
      */
-    notes?: string;
-    /**
-     * 系统角色  是否系统角色
-     */
-    isSystemRole: boolean;
+    status?: number;
     id?: string;
 }
