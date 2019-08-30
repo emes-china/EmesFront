@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ArrayService, NotificationService } from '@core';
-import { STColumn } from '@delon/abc';
+import { STColumn, STColumnButton, STData } from '@delon/abc';
 import { deepCopy } from '@delon/util';
 import { BaseComponent } from '@layout/base.component';
 import { StatusColumnBadge } from '@shared';
@@ -43,9 +43,34 @@ export class UserListComponent extends BaseComponent implements OnInit {
           click: (_record, modal) => {},
         },
         {
+          text: '禁用',
+          icon: 'close-circle',
+          type: 'del',
+          popTitle: '确认禁用吗？',
+          click: (_record, modal) => {},
+          iif: (item: STData, btn: STColumnButton, column: STColumn) => {
+            return true;
+          },
+        },
+        {
+          text: '启用',
+          icon: 'check-circle',
+          type: 'del',
+          popTitle: '确认禁用吗？',
+          click: (_record, modal) => {},
+          iif: (item: STData, btn: STColumnButton, column: STColumn) => {
+            return false;
+          },
+        },
+        {
           icon: '删除',
           type: 'del',
-          click: (record, _modal, comp) => {},
+          click: (record, _modal, comp) => {
+            this.delete(_modal);
+          },
+          iif: (item: STData, btn: STColumnButton, column: STColumn) => {
+            return true;
+          },
         },
       ],
     },
