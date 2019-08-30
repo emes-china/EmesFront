@@ -8,7 +8,7 @@ import { StatusColumnBadge } from '@shared';
 import { IRoleService } from '@System';
 import { NzModalService } from 'ng-zorro-antd';
 
-const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正常', Value: 1 }];
+export const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正常', Value: 1 }];
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,21 +18,16 @@ const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正常', V
 })
 export class RoleListComponent extends BaseComponent implements OnInit {
   @ViewChild('f', { static: false }) f: NgForm;
-  @ViewChild('contentTip', { static: false }) contentTip: TemplateRef<any>;
-  @ViewChild('footerTip', { static: false }) footerTip: TemplateRef<any>;
-  loading = false;
   nodes = [];
   selectNodes = [];
   initialRole = {
-    parentId: '',
     name: '',
     status: 1,
-    sortNo: 10,
   };
   role: any;
   keyword = '';
   columns: STColumn[] = [
-    { title: '角色名称', index: 'createId', default: '-' },
+    { title: '角色名称', index: 'name', default: '-' },
     { title: '状态', index: 'status', type: 'badge', badge: StatusColumnBadge },
     {
       title: '操作',
@@ -80,8 +75,11 @@ export class RoleListComponent extends BaseComponent implements OnInit {
 
   statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
 
+  @ViewChild('contentTip', { static: false }) contentTip: TemplateRef<any>;
+  @ViewChild('footerTip', { static: false }) footerTip: TemplateRef<any>;
   isVisible = false;
   title = '新增角色';
+  loading = false;
 
   constructor(
     injector: Injector,
