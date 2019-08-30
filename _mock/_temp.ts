@@ -1,5 +1,6 @@
+import { MockRequest } from '@delon/mock';
+
 export const Temp = {
-  '//api/user/authentication': JSON.parse(
-    JSON.stringify({ entity: '123', isSucceed: false, message: '', statusCode: 200 }),
-  ),
+  'POST /api/user/authentication': (req: MockRequest) =>
+    JSON.parse(JSON.stringify({ entity: '123', isSucceed: true, message: '', statusCode: 200 })),
 };
