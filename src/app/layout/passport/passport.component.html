@@ -1,0 +1,27 @@
+<header-i18n showLangText="false" class="langs"></header-i18n>
+<div class="page-wrapper">
+  <div class="header-wrapper">
+    <div class="logo">
+      <img src="./assets/images/logo.svg">
+      <div class="desc">做更优秀、更高效的 ERP</div>
+    </div>
+  </div>
+  <div class="content-wrapper">
+    <nz-carousel nzAutoPlay [nzAutoPlaySpeed]="6000">
+      <div nz-carousel-content *ngFor="let item of carouselArray">
+        <img [src]="item.imgUrl">
+
+      </div>
+    </nz-carousel>
+    <div class="form-container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class="footer-wrapper">
+    <global-footer [links]="links">
+      Copyright
+      <i nz-icon nzType="copyright" nzTheme="outline"></i>2018
+      <a href="http://emeschina.com" target="_blank">emeschina.com</a> | <span class="icp">粤ICP备888888号</span>
+    </global-footer>
+  </div>
+</div>

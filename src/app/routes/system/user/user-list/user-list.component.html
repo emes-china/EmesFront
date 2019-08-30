@@ -1,0 +1,21 @@
+<div nz-row nzGutter="24">
+  <div nz-col nzMd="24">
+    <nz-card [nzBordered]="false" nzSize="small">
+      <div nz-row nzGutter="24" class="mb-sm">
+        <div nz-col nzMd="22">
+          <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+            <input type="text" nz-input placeholder="账号/姓名" />
+          </nz-input-group>
+          <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+          </ng-template>
+        </div>
+        <div nz-col nzMd="2">
+          <button nz-button nzType="primary" (click)="create()">新增用户</button>
+        </div>
+      </div>
+
+      <st #st [data]="list" size='small' [columns]="columns"></st>
+    </nz-card>
+  </div>
+</div>

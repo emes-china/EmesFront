@@ -1,0 +1,32 @@
+<form nz-form #f="ngForm" se-container size="compact" gutter="24" class="single-fwh fmch">
+
+  <se label="用户名" required col="1">
+    <input type="text" nz-input [(ngModel)]="user.name" name="user_name" required>
+  </se>
+  <se label="密码" required col="1">
+    <input type="password" nz-input [(ngModel)]="user.password" name="user_user" required>
+  </se>
+  <se label="是否锁定" col="1">
+    <nz-radio-group [(ngModel)]="user.isLock" name="user_isLock" required>
+      <label nz-radio [nzValue]="true">是</label>
+      <label nz-radio [nzValue]="false">否</label>
+    </nz-radio-group>
+  </se>
+  <se label="单点登录" col="1">
+    <nz-radio-group [(ngModel)]="user.isLimitDuplicateLogin" name="user_isLimitDuplicateLogin" required>
+      <label nz-radio [nzValue]="true">是</label>
+      <label nz-radio [nzValue]="false">否</label>
+    </nz-radio-group>
+  </se>
+  <se label="生效时间" col="1">
+    <nz-date-picker [(ngModel)]="user.effectiveDate" name="user_effectiveDate" required></nz-date-picker>
+  </se>
+
+  <se label="备注" col="1">
+    <input type="text" nz-input [(ngModel)]="user.notes" name="user_notes" required>
+  </se>
+  <se col="1">
+    <button nz-button nzType="primary" [disabled]="f.invalid" (click)="save()">保存</button>
+    <button nz-button nzType="default" (click)="reset()">重置</button>
+  </se>
+</form>

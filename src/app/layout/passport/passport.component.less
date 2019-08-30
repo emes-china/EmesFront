@@ -1,0 +1,77 @@
+@import '~@delon/theme/styles/default';
+
+:host {
+  ::ng-deep {
+    .langs {
+      position: absolute;
+      width: 100%;
+      height: 40px;
+      line-height: 44px;
+      text-align: right;
+
+      .anticon {
+        margin-top: 24px;
+        margin-right: 24px;
+        font-size: 14px;
+        vertical-align: top;
+        cursor: pointer;
+      }
+    }
+
+    .ant-form-item {
+      margin-bottom: 24px;
+    }
+
+    .page-wrapper {
+      height: 100%;
+      background-color: #fff;
+    }
+
+    .header-wrapper {
+      height: 64px;
+
+      .logo {
+        padding-left: 3%;
+
+        img {
+          display: inline-block;
+          height: 72px;
+        }
+
+        .desc {
+          position: relative;
+          top: 12px;
+          display: inline-block;
+          padding-left: 8px;
+        }
+      }
+    }
+
+    .content-wrapper {
+      display: flex;
+      height: 78%;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+
+      nz-carousel {
+        display: inline-block;
+
+        .slick-slide img {
+          width: 100%;
+        }
+      }
+
+      .form-container {
+        position: absolute;
+        top: 23%;
+        right: 5%;
+        display: inline-block;
+        width: 400px;
+        background-color: white;
+      }
+    }
+
+    .icp {
+      font-size: 12px;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "app": {
+    "name": "Emes",
+    "description": "Emes ERP, do better"
+  },
+  "user": {
+    "name": "Admin",
+    "avatar": "./assets/images/avatar.jpg",
+    "email": "admin@emes.com"
+  },
+  "menu": []
+}

@@ -1,0 +1,23 @@
+@import '~@delon/theme/styles/default';
+
+:host {
+  ::ng-deep {
+    .alain-default__nav.alain-default__nav-menu .alain-default__nav-item {
+      min-width: auto;
+      padding: 8px 6px;
+    }
+
+    .alain-default__nav-item {
+      min-width: 32px;
+    }
+
+    .alain-default__nav-item,
+    .alain-default__nav nz-badge {
+      color: @text-color;
+
+      .ant-badge-count {
+        right: 8px;
+      }
+    }
+  }
+}

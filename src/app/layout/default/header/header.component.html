@@ -1,0 +1,63 @@
+<div class="alain-default__header-logo">
+  <a [routerLink]="['/']" class="alain-default__header-logo-link">
+    <img
+      class="alain-default__header-logo-expanded"
+      src="./assets/images/logo.svg"
+      alt="{{ settings.app.name }}"
+      style="max-height:64px;"
+    />
+    <img
+      class="alain-default__header-logo-collapsed"
+      src="./assets/images/sygnet.svg"
+      alt="{{ settings.app.name }}"
+      style="max-height:30px;"
+    />
+  </a>
+</div>
+<div class="alain-default__nav-wrap">
+  <ul class="alain-default__nav">
+    <!-- Menu -->
+    <li>
+      <div class="alain-default__nav-item" (click)="toggleCollapsedSidebar()">
+        <i nz-icon nzType="menu-{{ settings.layout.collapsed ? 'unfold' : 'fold' }}"></i>
+      </div>
+    </li>
+    <!-- <li class="hidden-mobile">
+      <a class="alain-default__nav-item" href="#"> 个人 </a>
+    </li>
+    <li class="hidden-mobile">
+      <a class="alain-default__nav-item" href="#"> 流程 </a>
+    </li>
+    <li class="hidden-mobile">
+      <a class="alain-default__nav-item" href="#"> 采购 </a>
+    </li>
+    <li class="hidden-mobile">
+      <a class="alain-default__nav-item" href="#"> 销售 </a>
+    </li>
+    <li class="hidden-mobile">
+      <a class="alain-default__nav-item" href="#"> 仓库 </a>
+    </li>
+    <li class="hidden-mobile">
+      <a class="alain-default__nav-item" href="#"> 生产 </a>
+    </li>
+    <li class="hidden-mobile">
+      <a class="alain-default__nav-item" href="#"> 财务 </a>
+    </li>
+    <li class="hidden-mobile">
+      <a class="alain-default__nav-item" href="#"> 品质 </a>
+    </li>
+    <li class="hidden-mobile">
+      <a class="alain-default__nav-item" href="#"> 报告 </a>
+    </li> -->
+  </ul>
+  <ul class="alain-default__nav">
+    <!-- Notify -->
+    <li>
+      <header-notify></header-notify>
+    </li>
+
+    <li class="hidden-mobile">
+      <header-user></header-user>
+    </li>
+  </ul>
+</div>
