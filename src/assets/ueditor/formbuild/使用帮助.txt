@@ -1,0 +1,14 @@
+
+官方网址：http://formbuild.leipi.org
+
+
+已知兼容：IE7+ 等主流浏览器
+设计器目录：formbuild
+所在路径：Public\js\formbuild
+
+设计器核心文件：
+formbuild/leipi.form.build.core.js
+扩展文件：
+formbuild/leipi.form.build.plugins.js
+
+示例：index.html
