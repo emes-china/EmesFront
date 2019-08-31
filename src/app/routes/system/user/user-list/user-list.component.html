@@ -1,7 +1,13 @@
 <div class="tool-bar">
   <div>
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" nzSize="small">
-      <input type="text" nz-input placeholder="关键字" [(ngModel)]="keyword" (keyup.enter)="refresh()" />
+      <input
+        type="text"
+        nz-input
+        placeholder="关键字"
+        [(ngModel)]="searchParams.Where.KeyWord"
+        (keyup.enter)="refresh()"
+      />
     </nz-input-group>
     <ng-template #suffixIconButton>
       <button nz-button nzType="primary" nzSize="small" nzSearch (click)="refresh()">
@@ -10,13 +16,13 @@
     </ng-template>
   </div>
   <div>
-    <button type="button" nz-button nzType="default" nzSize="small" (click)="add($event)">
+    <button type="button" nz-button nzType="default" nzSize="small" (click)="add()">
       <i nz-icon nzType="plus" nzTheme="outline"></i>
       新增
     </button>
   </div>
   <div>
-    <button type="button" nz-button nzType="default" nzSize="small" (click)="add($event)">
+    <button type="button" nz-button nzType="default" nzSize="small" (click)="add()">
       <i nz-icon nzType="plus" nzTheme="outline"></i>
       为用户分配角色
     </button>
@@ -62,62 +68,3 @@
     </nz-card>
   </div>
 </div>
-
-<nz-modal
-  [(nzVisible)]="isVisible"
-  [nzTitle]="title"
-  [nzFooter]="footerTip"
-  [nzMaskClosable]="false"
-  (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleOk()"
->
-  <form nz-form #f="ngForm" se-container size="compact" gutter="24">
-    <se label="账号" required col="1">
-      <input type="text" nz-input [(ngModel)]="user.loginName" name="user_loginName" required />
-    </se>
-
-    <se label="姓名" required col="1">
-      <input type="text" nz-input [(ngModel)]="user.name" name="user_name" required />
-    </se>
-
-    <se label="状态" col="1">
-      <nz-select class="zc_select_default" [(ngModel)]="user.status" name="user_status" nzPlaceHolder="请选择">
-        <ng-container *ngFor="let option of statusSelected">
-          <nz-option [nzValue]="option.Value" [nzLabel]="option.Text"></nz-option>
-        </ng-container>
-      </nz-select>
-    </se>
-
-    <se label="所属机构" col="1">
-      <nz-tree-select
-        class="full"
-        nzPlaceHolder="请选择机构"
-        [nzNodes]="nodes"
-        [nzDefaultExpandAll]="true"
-        [nzAllowClear]="true"
-        [(ngModel)]="user.orgId"
-        name="user_orgId"
-        [nzMultiple]="true"
-      >
-      </nz-tree-select>
-    </se>
-
-    <se label="描述" col="1">
-      <input type="text" nz-input [(ngModel)]="user.summary" name="user_summary" />
-    </se>
-  </form>
-
-  <ng-template #footerTip>
-    <button nz-button type="button" nzType="default" (click)="reset()">取消</button>
-    <button
-      nz-button
-      type="submit"
-      nzType="primary"
-      [disabled]="f.invalid"
-      [nzLoading]="loading"
-      (click)="handleOk($event)"
-    >
-      保存
-    </button>
-  </ng-template>
-</nz-modal>

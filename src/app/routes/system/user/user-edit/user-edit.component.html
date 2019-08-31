@@ -1,0 +1,35 @@
+<form nz-form #f="ngForm" se-container size="compact" gutter="24">
+  <se label="账号" required col="1">
+    <input type="text" nz-input [(ngModel)]="record.loginName" name="record_loginName" required />
+  </se>
+
+  <se label="姓名" required col="1">
+    <input type="text" nz-input [(ngModel)]="record.name" name="record_name" required />
+  </se>
+
+  <se label="状态" col="1">
+    <nz-select class="zc_select_default" [(ngModel)]="record.status" name="record_status" nzPlaceHolder="请选择">
+      <ng-container *ngFor="let option of statusSelected">
+        <nz-option [nzValue]="option.Value" [nzLabel]="option.Text"></nz-option>
+      </ng-container>
+    </nz-select>
+  </se>
+
+  <se label="所属机构" col="1">
+    <nz-tree-select
+      class="full"
+      nzPlaceHolder="请选择机构"
+      [nzNodes]="extra"
+      [nzDefaultExpandAll]="true"
+      [nzAllowClear]="true"
+      [(ngModel)]="record.orgId"
+      name="record_orgId"
+      [nzMultiple]="true"
+    >
+    </nz-tree-select>
+  </se>
+
+  <se label="描述" col="1">
+    <input type="text" nz-input [(ngModel)]="record.summary" name="record_summary" />
+  </se>
+</form>

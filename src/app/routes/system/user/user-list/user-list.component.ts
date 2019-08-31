@@ -1,33 +1,21 @@
 import { Component, Injector, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ArrayService, NotificationService } from '@core';
-import { STColumn, STColumnButton, STData } from '@delon/abc';
+import { ArrayService, Mode } from '@core';
+import { STColumn, STColumnButton, STData, STPage } from '@delon/abc';
 import { deepCopy } from '@delon/util';
 import { BaseComponent } from '@layout/base.component';
 import { StatusColumnBadge } from '@shared';
 import { IUserService } from '@System/api/iUser.service';
-import { initialStatusSelected } from '../../role/role-list/role-list.component';
+import { NzModalService } from 'ng-zorro-antd';
+import { initialStatusSelected } from '../../role/role-edit/role-edit.component';
+import { UserEditComponent } from '../user-edit/user-edit.component';
 
 @Component({
-  selector: 'emes-user-list',
+  selector: 'zc-user-list',
   templateUrl: './user-list.component.html',
   styles: [],
 })
 export class UserListComponent extends BaseComponent implements OnInit {
-  @ViewChild('f', { static: false }) f: NgForm;
-  nodes = [];
-  selectNodes = [];
-  initialUser = {
-    parentId: '',
-    loginName: '',
-    name: '',
-    orgName: '',
-    orgId: [],
-    status: 1,
-    summary: '',
-  };
-  user;
-  keyword = '';
   columns: STColumn[] = [
     { title: '账号', index: 'loginName' },
     { title: '姓名', index: 'name' },
@@ -75,22 +63,32 @@ export class UserListComponent extends BaseComponent implements OnInit {
       ],
     },
   ];
+
+  page: STPage = {
+    show: true,
+    front: true, // 后端分页 改为 false
+    showSize: true,
+    showQuickJumper: true,
+    total: true,
+  };
+
+  searchParams = { Where: { KeyWord: null }, PageIndex: 1, PageSize: 30 };
   list = [];
+  nodes = [];
+  selectNodes = [];
 
   statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
 
-  @ViewChild('contentTip', { static: false }) contentTip: TemplateRef<any>;
-  @ViewChild('footerTip', { static: false }) footerTip: TemplateRef<any>;
-  isVisible = false;
-  title = '新增用户';
-  loading = false;
-
-  constructor(injector: Injector, private arrSrv: ArrayService, private userSrv: IUserService) {
+  constructor(
+    injector: Injector,
+    private arrSrv: ArrayService,
+    private userSrv: IUserService,
+    private modalSrv: NzModalService,
+  ) {
     super(injector);
   }
 
   ngOnInit() {
-    this.user = this.initialUser;
     this.getList();
   }
 
@@ -98,12 +96,8 @@ export class UserListComponent extends BaseComponent implements OnInit {
     this.getList();
   }
 
-  reset() {
-    this.f.reset(this.initialUser);
-  }
-
   all() {
-    this.keyword = '';
+    this.searchParams.Where.KeyWord = '';
     this.getList();
   }
 
@@ -129,57 +123,93 @@ export class UserListComponent extends BaseComponent implements OnInit {
     //   });
   }
 
-  add($event: any) {
-    this.user = this.initialUser;
-    this.isVisible = true;
-  }
+  add() {
+    const nzModalRef = this.modalSrv.create({
+      nzContent: UserEditComponent,
+      nzTitle: '新增',
+      nzComponentParams: {
+        mode: Mode.Add,
+        extra: this.selectNodes,
+      },
+      nzOnOk: e => {
+        e.save();
+        return false;
+      },
+    });
 
-  addChild($event: any) {
-    const pid = this.user.id;
-    this.user = this.initialUser;
-    this.user.parentId = pid;
-    this.isVisible = true;
-  }
-
-  select($event: any) {
-    this.user = $event.node.origin;
-    this.getSubItem();
-  }
-
-  edit($event: any) {
-    this.user = $event.node.origin;
-    this.isVisible = true;
-  }
-
-  handleCancel = () => {
-    this.isVisible = false;
-  };
-
-  handleOk = () => {
-    this.isVisible = false;
-  };
-
-  save($event: any) {
-    if (this.user.id === undefined) {
-      this.userSrv.create({ request: this.user }).subscribe(x => {
-        this.notifySrv.success();
-        this.getList();
-        this.reset();
-      });
-    } else {
-      this.userSrv.update(this.user).subscribe(x => {
-        this.notifySrv.success();
-        this.getList();
-        this.reset();
+    if (nzModalRef) {
+      nzModalRef.afterClose.subscribe(x => {
+        if (x) {
+          this.getList();
+        }
       });
     }
   }
 
-  delete($event: any) {
-    if (this.user.id !== undefined) {
-      this.userSrv.delete({ request: { id: this.user.id } }).subscribe(x => {
+  addChild(node: any) {
+    const nzModalRef = this.modalSrv.create({
+      nzContent: UserEditComponent,
+      nzTitle: '新增子级',
+      nzComponentParams: {
+        record: {
+          parentId: node.node.id,
+        },
+        mode: Mode.Add,
+        extra: this.selectNodes,
+      },
+      nzOnOk: e => {
+        e.save();
+        return false;
+      },
+    });
+
+    if (nzModalRef) {
+      nzModalRef.afterClose.subscribe(x => {
+        if (x) {
+          this.getList();
+        }
+      });
+    }
+  }
+
+  select($event: any) {
+    // this.user = $event.node.origin;
+    this.getSubItem();
+  }
+
+  edit(record: any) {
+    record = {
+      id: record.id,
+      status: record.status,
+      name: record.name,
+    };
+    const nzModalRef = this.modalSrv.create({
+      nzContent: UserEditComponent,
+      nzTitle: `编辑`,
+      nzComponentParams: {
+        record,
+        mode: Mode.Edit,
+        extra: this.selectNodes,
+      },
+      nzOnOk: e => {
+        e.save();
+        return false;
+      },
+    });
+
+    if (nzModalRef) {
+      nzModalRef.afterClose.subscribe(x => {
+        if (x) {
+          this.getList();
+        }
+      });
+    }
+  }
+
+  delete(record: any) {
+    if (record.id !== undefined) {
+      this.userSrv.delete({ request: { id: record.id } }).subscribe(x => {
         this.notifySrv.success();
-        this.reset();
         this.getList();
       });
     } else {
