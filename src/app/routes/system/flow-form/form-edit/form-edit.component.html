@@ -1,0 +1,23 @@
+<form nz-form #f="ngForm" se-container labelWidth="100" size="compact" gutter="24">
+  <se label="上级机构" col="1">
+    <nz-tree-select
+      [nzNodes]="extra"
+      [(ngModel)]="record.parentId"
+      name="record_ParentId"
+      nzShowSearch
+      nzPlaceHolder="请选择"
+    >
+    </nz-tree-select>
+  </se>
+
+  <se label="机构名称" required col="1">
+    <input type="text" nz-input [(ngModel)]="record.name" name="record_name" required />
+  </se>
+  <se label="状态" col="1">
+    <nz-select [(ngModel)]="record.status" name="record_status" nzPlaceHolder="请选择 ">
+      <ng-container *ngFor="let option of statusSelected">
+        <nz-option [nzValue]="option.Value" [nzLabel]="option.Text"></nz-option>
+      </ng-container>
+    </nz-select>
+  </se>
+</form>

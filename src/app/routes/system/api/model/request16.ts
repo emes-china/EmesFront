@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeleteResourceDto } from './deleteResourceDto';
+import { DeletePostDto } from './deletePostDto';
 
 
 export interface Request16 { 
-    request?: DeleteResourceDto;
+    request?: DeletePostDto;
 }

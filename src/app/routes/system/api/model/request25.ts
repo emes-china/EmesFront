@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { AuthUserDto } from './authUserDto';
+import { CreateRoleDto } from './createRoleDto';
 
 
 export interface Request25 { 
-    request?: AuthUserDto;
+    request?: CreateRoleDto;
 }

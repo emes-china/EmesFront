@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdateOrganizationDto } from './updateOrganizationDto';
+import { PatchOrganizationDto } from './patchOrganizationDto';
 
 
 export interface Request9 { 
-    request?: UpdateOrganizationDto;
+    request?: PatchOrganizationDto;
 }

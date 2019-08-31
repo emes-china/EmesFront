@@ -18,6 +18,7 @@ export interface OrganizationDto {
      * 上级机构  Desc:上级机构
      */
     parentId?: string;
+    parentName?: string;
     name?: string;
     /**
      * 当前状态

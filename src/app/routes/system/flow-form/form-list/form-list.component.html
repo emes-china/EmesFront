@@ -1,0 +1,66 @@
+<div class="tool-bar">
+  <div>
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" nzSize="small">
+      <input type="text" nz-input placeholder="关键字" [(ngModel)]="keyword" (keyup.enter)="refresh()" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <i
+        nz-icon
+        nz-tooltip
+        class="ant-input-clear-icon zc-clear-small"
+        nzTheme="fill"
+        nzType="close-circle"
+        *ngIf="keyword"
+        (click)="keyword = null"
+      ></i>
+      <button nz-button nzType="primary" nzSize="small" nzSearch (click)="refresh()">
+        <i nz-icon nzType="search"></i>
+      </button>
+    </ng-template>
+  </div>
+  <div>
+    <button type="button" nz-button nzType="default" nzSize="small" (click)="add($event)">
+      <i nz-icon nzType="plus" nzTheme="outline"></i>
+      新增
+    </button>
+  </div>
+  <div>
+    <button type="button" nz-button nzType="default" nzSize="small" (click)="refresh()">
+      <i nz-icon nzType="sync" nzTheme="outline"></i>
+      刷新
+    </button>
+  </div>
+</div>
+<div nz-row nzGutter="24">
+  <div nz-col nzMd="24" nzLg="7">
+    <nz-card [nzBordered]="false" nzSize="small" [nzTitle]="titleTpl">
+      <ng-template #titleTpl>
+        <a (click)="all()">
+          所有机构>>
+        </a>
+      </ng-template>
+
+      <nz-tree
+        [nzData]="nodes"
+        nzExpandAll
+        nzBlockNode
+        (nzClick)="select($event)"
+        class="mhb"
+        [nzTreeTemplate]="nzTreeTemplate"
+      >
+      </nz-tree>
+      <ng-template #nzTreeTemplate let-node>
+        <span class="e_tree-node" [ngClass]="{ 'e_tree-node-selected': node.isSelected }">
+          <i nz-icon nzType="file" class="mr4"></i>
+          <span class="file-name">{{ node?.origin?.no }}</span>
+          <span class="file-desc"> {{ node?.origin?.name }}</span>
+        </span>
+      </ng-template>
+    </nz-card>
+  </div>
+  <div nz-col nzMd="24" nzLg="17">
+    <nz-card [nzBordered]="false" nzSize="small">
+      <st #st [data]="list" size="small" [columns]="columns"></st>
+    </nz-card>
+  </div>
+</div>

@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateRoleDto } from './createRoleDto';
+import { CreateResourceDto } from './createResourceDto';
 
 
 export interface Request20 { 
-    request?: CreateRoleDto;
+    request?: CreateResourceDto;
 }

@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateModuleDto } from './createModuleDto';
+import { PatchFormDto } from './patchFormDto';
 
 
 export interface Request { 
-    request?: CreateModuleDto;
+    request?: PatchFormDto;
 }
