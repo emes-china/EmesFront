@@ -1,11 +1,9 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { STColumn, STColumnButton, STData, STPage } from '@delon/abc';
-import { deepCopy } from '@delon/util';
-import { ArrayService, Mode, StatusColumnBadge } from '@shared';
+import { ArrayService, deepCopy } from '@delon/util';
+import { ModalService, Mode, StatusColumnBadge } from '@shared';
 import { BaseComponent } from '@shared/components/base.component';
 import { IUserService } from '@System/api/iUser.service';
-import { NzModalService } from 'ng-zorro-antd';
-import { initialStatusSelected } from '../../role/role-edit/role-edit.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
 
 @Component({
@@ -75,13 +73,21 @@ export class UserListComponent extends BaseComponent implements OnInit {
   nodes = [];
   selectNodes = [];
 
-  statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
+  initialUser = {
+    parentId: '',
+    loginName: '',
+    name: '',
+    orgName: '',
+    orgId: [],
+    status: 1,
+    summary: '',
+  };
 
   constructor(
     injector: Injector,
     private arrSrv: ArrayService,
     private userSrv: IUserService,
-    private modalSrv: NzModalService,
+    private modalSrv: ModalService,
   ) {
     super(injector);
   }
@@ -122,52 +128,21 @@ export class UserListComponent extends BaseComponent implements OnInit {
   }
 
   add() {
-    const nzModalRef = this.modalSrv.create({
-      nzContent: UserEditComponent,
-      nzTitle: '新增',
-      nzComponentParams: {
-        mode: Mode.Add,
-        extra: this.selectNodes,
-      },
-      nzOnOk: e => {
-        e.save();
-        return false;
-      },
+    this.modalSrv.add(UserEditComponent, { record: this.initialUser, extra: this.selectNodes }).subscribe(x => {
+      if (x) {
+        this.refresh();
+      }
     });
-
-    if (nzModalRef) {
-      nzModalRef.afterClose.subscribe(x => {
-        if (x) {
-          this.getList();
-        }
-      });
-    }
   }
 
   addChild(node: any) {
-    const nzModalRef = this.modalSrv.create({
-      nzContent: UserEditComponent,
-      nzTitle: '新增子级',
-      nzComponentParams: {
-        record: {
-          parentId: node.node.id,
-        },
-        mode: Mode.Add,
-        extra: this.selectNodes,
-      },
-      nzOnOk: e => {
-        e.save();
-        return false;
-      },
+    const record = deepCopy(this.initialUser);
+    record.parentId = node.node.id;
+    this.modalSrv.add(UserEditComponent, { record, extra: this.selectNodes }).subscribe(x => {
+      if (x) {
+        this.refresh();
+      }
     });
-
-    if (nzModalRef) {
-      nzModalRef.afterClose.subscribe(x => {
-        if (x) {
-          this.getList();
-        }
-      });
-    }
   }
 
   select($event: any) {
@@ -181,27 +156,11 @@ export class UserListComponent extends BaseComponent implements OnInit {
       status: record.status,
       name: record.name,
     };
-    const nzModalRef = this.modalSrv.create({
-      nzContent: UserEditComponent,
-      nzTitle: `编辑`,
-      nzComponentParams: {
-        record,
-        mode: Mode.Edit,
-        extra: this.selectNodes,
-      },
-      nzOnOk: e => {
-        e.save();
-        return false;
-      },
+    this.modalSrv.edit(UserEditComponent, { record, Mode: Mode.Edit, extra: this.selectNodes }).subscribe(x => {
+      if (x) {
+        this.refresh();
+      }
     });
-
-    if (nzModalRef) {
-      nzModalRef.afterClose.subscribe(x => {
-        if (x) {
-          this.getList();
-        }
-      });
-    }
   }
 
   delete(record: any) {

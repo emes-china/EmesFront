@@ -1,14 +1,10 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, Injector, OnInit } from '@angular/core';
 import { STColumn, STColumnButton, STComponent, STData, STPage } from '@delon/abc';
-import { ModalHelper } from '@delon/theme';
-import { deepCopy } from '@delon/util';
+import { Mode, StatusColumnBadge, ModalService } from '@shared';
 import { BaseComponent } from '@shared/components/base.component';
-import { StatusColumnBadge } from '@shared';
 import { IRoleService } from '@System';
 import { NzModalService } from 'ng-zorro-antd';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
-import { Mode } from '@core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -89,15 +85,25 @@ export class RoleListComponent extends BaseComponent implements OnInit {
   searchParams = { Where: { KeyWord: null }, PageIndex: 1, PageSize: 30 };
   list = [];
 
-  constructor(injector: Injector, private roleSrv: IRoleService, private modalSrv: NzModalService) {
+  initialRole = {
+    parentId: '',
+    name: '',
+    status: 1,
+    sortNo: 10,
+  };
+
+  constructor(injector: Injector, private roleSrv: IRoleService, private modalSrv: ModalService) {
     super(injector);
   }
 
   ngOnInit() {
-    this.getList();
+    this.refresh();
   }
 
-  refresh() {
+  refresh(resetPageIndex = true) {
+    if (resetPageIndex) {
+      this.searchParams.PageIndex = 1;
+    }
     this.getList();
   }
 
@@ -105,19 +111,16 @@ export class RoleListComponent extends BaseComponent implements OnInit {
     switch (e.type) {
       case 'pi':
         this.searchParams.PageIndex = e.pi;
-        this.getList(false);
+        this.refresh(false);
         break;
       case 'ps':
         this.searchParams.PageSize = e.ps;
-        this.getList();
+        this.refresh();
         break;
     }
   }
 
-  getList(resetPageIndex = true) {
-    if (resetPageIndex) {
-      this.searchParams.PageIndex = 1;
-    }
+  getList() {
     this.roleSrv.query({ request: this.searchParams as any }).subscribe((x: any) => {
       if (!x) {
         return;
@@ -127,25 +130,11 @@ export class RoleListComponent extends BaseComponent implements OnInit {
   }
 
   add() {
-    const nzModalRef = this.modalSrv.create({
-      nzContent: RoleEditComponent,
-      nzTitle: '新增',
-      nzComponentParams: {
-        mode: Mode.Add,
-      },
-      nzOnOk: e => {
-        e.save();
-        return false;
-      },
+    this.modalSrv.add(RoleEditComponent, { record: this.initialRole }).subscribe(x => {
+      if (x) {
+        this.refresh();
+      }
     });
-
-    if (nzModalRef) {
-      nzModalRef.afterClose.subscribe(x => {
-        if (x) {
-          this.getList();
-        }
-      });
-    }
   }
 
   edit(record: any) {
@@ -154,26 +143,11 @@ export class RoleListComponent extends BaseComponent implements OnInit {
       status: record.status,
       name: record.name,
     };
-    const nzModalRef = this.modalSrv.create({
-      nzContent: RoleEditComponent,
-      nzTitle: `编辑`,
-      nzComponentParams: {
-        record,
-        mode: Mode.Edit,
-      },
-      nzOnOk: e => {
-        e.save();
-        return false;
-      },
+    this.modalSrv.edit(RoleEditComponent, { record, Mode: Mode.Edit }).subscribe(x => {
+      if (x) {
+        this.refresh();
+      }
     });
-
-    if (nzModalRef) {
-      nzModalRef.afterClose.subscribe(x => {
-        if (x) {
-          this.getList();
-        }
-      });
-    }
   }
 
   delete(e: any) {

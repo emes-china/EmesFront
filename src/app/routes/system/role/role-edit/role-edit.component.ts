@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { deepCopy } from '@delon/util';
-import { Mode, NotificationService } from '@shared';
+import { BaseModalComponent, Mode } from '@shared';
 import { IRoleService } from '@System';
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalRef } from 'ng-zorro-antd';
 
 export const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正常', Value: 1 }];
 
@@ -12,7 +12,7 @@ export const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正
   templateUrl: './role-edit.component.html',
   styles: [],
 })
-export class RoleEditComponent implements OnInit {
+export class RoleEditComponent extends BaseModalComponent {
   @ViewChild('f', { static: false }) f: NgForm;
   loading = false;
 
@@ -22,41 +22,24 @@ export class RoleEditComponent implements OnInit {
     status: 1,
     sortNo: 10,
   };
+
   statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
 
-  private _record = deepCopy(this.initialRole);
-  @Input()
-  set record(value) {
-    if (value) {
-      this._record = value;
-    }
+  constructor(injector: Injector, public modalRef: NzModalRef, private roleSrv: IRoleService) {
+    super(injector, modalRef);
   }
-  get record() {
-    return this._record;
-  }
-
-  @Input()
-  mode: Mode = Mode.Add;
-
-  constructor(
-    private modalSrv: NzModalService,
-    private notifySrv: NotificationService,
-    private roleSrv: IRoleService,
-  ) {}
-
-  ngOnInit() {}
 
   reset() {
     this.f.reset(this.initialRole);
   }
 
-  save() {
+  ok() {
     this.loading = true;
     if (this.record.id === undefined) {
       this.roleSrv.create({ request: this.record }).subscribe(x => {
         this.notifySrv.success();
         this.reset();
-        this.modalSrv.closeAll();
+        this.modalRef.close(true);
         this.loading = false;
       });
     } else {
