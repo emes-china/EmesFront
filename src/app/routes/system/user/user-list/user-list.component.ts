@@ -1,15 +1,14 @@
 import { Component, Injector, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ArrayService, NotificationService } from '@core';
 import { STColumn, STColumnButton, STData } from '@delon/abc';
 import { deepCopy } from '@delon/util';
-import { BaseComponent } from '@layout/base.component';
-import { StatusColumnBadge } from '@shared';
+import { BaseComponent } from '@shared/components/base.component';
+import { StatusColumnBadge, ArrayService } from '@shared';
 import { IUserService } from '@System/api/iUser.service';
 import { initialStatusSelected } from '../../role/role-list/role-list.component';
 
 @Component({
-  selector: 'emes-user-list',
+  selector: 'zc-user-list',
   templateUrl: './user-list.component.html',
   styles: [],
 })

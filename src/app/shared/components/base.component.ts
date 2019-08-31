@@ -1,7 +1,7 @@
 import { Component, Inject, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReuseTabService } from '@delon/abc';
-import { NotificationService } from '@core';
+import { NotificationService } from '../service/notification.service';
 
 @Component({
   selector: 'zc-base',

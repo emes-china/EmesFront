@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Injector } from '@angular/core';
 import { IRoleService } from '@System';
-import { NotificationService } from '@core';
+import { NotificationService, BaseModalComponent } from '@shared';
 import { NzModalRef } from 'ng-zorro-antd';
 
 @Component({
@@ -8,19 +8,8 @@ import { NzModalRef } from 'ng-zorro-antd';
   templateUrl: './role-edit.component.html',
   styles: [],
 })
-export class RoleEditComponent implements OnInit {
-  private _record = null;
-  @Input()
-  set record(value) {
-    if (value) {
-      this._record = value;
-    }
+export class RoleEditComponent extends BaseModalComponent {
+  constructor(injector: Injector, modalRef: NzModalRef, private roleSrv: IRoleService) {
+    super(injector, modalRef);
   }
-  get record() {
-    return this._record;
-  }
-
-  constructor(private modal: NzModalRef, private notifySrv: NotificationService, private roleSrv: IRoleService) {}
-
-  ngOnInit() {}
 }

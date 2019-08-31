@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IPostService } from '../../api';
-import { DrawerHelper } from '@delon/theme';
 import { STColumn } from '@delon/abc';
-import { PostCreateComponent } from '../post-create/post-create.component';
-
+import { DrawerHelper } from '@delon/theme';
+import { IPostService } from '../../api';
 @Component({
   selector: 'emes-post-list',
   templateUrl: './post-list.component.html',
@@ -27,20 +25,5 @@ export class PostListComponent implements OnInit {
       this.list = x;
     });
   }
-  create() {
-    this.drawerHelper
-      .create(
-        '新增岗位',
-        PostCreateComponent,
-        {},
-        {
-          size: 'xl',
-        },
-      )
-      .subscribe(x => {
-        if (x) {
-          this.getList();
-        }
-      });
-  }
+  create() {}
 }
