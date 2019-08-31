@@ -16,12 +16,6 @@
     </button>
   </div>
   <div>
-    <button type="button" nz-button nzType="default" nzSize="small" (click)="delete($event)">
-      <i nz-icon nzType="delete" nzTheme="outline"></i>
-      删除
-    </button>
-  </div>
-  <div>
     <button type="button" nz-button nzType="default" nzSize="small" (click)="refresh()">
       <i nz-icon nzType="sync" nzTheme="outline"></i>
       刷新
@@ -61,35 +55,3 @@
     </nz-card>
   </div>
 </div>
-
-<ng-template>
-  <nz-card [nzBordered]="false" nzSize="small">
-    <form nz-form #f="ngForm" se-container size="compact" gutter="24" class="single-fwh fmch">
-      <se label="上级机构" col="1">
-        <nz-tree-select
-          style="width: 250px"
-          [nzNodes]="selectNodes"
-          [(ngModel)]="org.parentId"
-          name="org_ParentId"
-          nzShowSearch
-          nzPlaceHolder="请选择"
-        >
-        </nz-tree-select>
-      </se>
-
-      <se label="机构名称" required col="1">
-        <input type="text" nz-input [(ngModel)]="org.name" name="org_name" required />
-      </se>
-      <se label="状态" col="1">
-        <nz-select style="width: 120px;" [(ngModel)]="org.status" name="org_status" nzPlaceHolder="请选择 ">
-          <nz-option [nzValue]="1" [nzLabel]="'正常'"></nz-option>
-          <nz-option [nzValue]="2" [nzLabel]="'异常'"></nz-option>
-        </nz-select>
-      </se>
-      <se col="1">
-        <button nz-button nzType="primary" [disabled]="f.invalid" (click)="save($event)">保存</button>
-        <button nz-button nzType="default" (click)="reset()">重置</button>
-      </se>
-    </form>
-  </nz-card>
-</ng-template>

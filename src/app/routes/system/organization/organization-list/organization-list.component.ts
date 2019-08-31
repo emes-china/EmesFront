@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector, ViewChild } from '@angular/core';
+import { Component, OnInit, Injector, ViewChild, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
 import { BaseComponent } from '@layout/base.component';
 import { Router } from '@angular/router';
@@ -6,6 +6,8 @@ import { IOrganizationService } from '@System';
 import { NotificationService, ArrayService } from '@core';
 import { STColumn } from '@delon/abc';
 import { StatusColumnBadge } from '@shared';
+import { OrganizationEditComponent } from '../organization-edit/organization-edit.component';
+import { ModalHelper } from '@delon/theme';
 
 @Component({
   selector: 'zc-organization-list',
@@ -13,7 +15,6 @@ import { StatusColumnBadge } from '@shared';
   styles: [],
 })
 export class OrganizationListComponent extends BaseComponent implements OnInit {
-  @ViewChild('f', { static: false }) f: NgForm;
   nodes = [];
   selectNodes = [];
   initialOrg = {
@@ -35,20 +36,30 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
         {
           text: '编辑',
           icon: 'edit',
-          type: 'link',
+          type: 'modal',
+          modal: {
+            component: OrganizationEditComponent,
+          },
           click: (_record, modal) => {},
         },
         {
           text: '删除',
           icon: 'delete',
           type: 'del',
-          click: (record, _modal, comp) => {},
+          click: (record, _modal, comp) => {
+            this.delete(record);
+          },
         },
       ],
     },
   ];
   list = [];
-  constructor(injector: Injector, private arrSrv: ArrayService, private orgSrv: IOrganizationService) {
+  constructor(
+    injector: Injector,
+    private arrSrv: ArrayService,
+    private orgSrv: IOrganizationService,
+    private modalHelper: ModalHelper,
+  ) {
     super(injector);
   }
   ngOnInit() {
@@ -58,9 +69,7 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
   refresh() {
     this.getList();
   }
-  reset() {
-    this.f.reset(this.initialOrg);
-  }
+
   all() {
     this.keyword = '';
     this.getList();
@@ -89,7 +98,9 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
   }
 
   add($event) {
-    this.org = this.initialOrg;
+    this.modalHelper.create(OrganizationEditComponent, { record: { org: this.initialOrg } }).subscribe(x => {
+      console.log(x);
+    });
   }
   addChild($event) {
     const pid = this.org.id;
@@ -100,30 +111,13 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
     this.org = $event.node.origin;
     this.getSubItem();
   }
-  edit($event) {
-    this.org = $event.node.origin;
-  }
-  save($event) {
-    if (this.org.id === undefined) {
-      this.orgSrv.create({ request: this.org }).subscribe(x => {
-        this.notifySrv.success();
-        this.getList();
-        this.reset();
-      });
-    } else {
-      this.orgSrv.update(this.org).subscribe(x => {
-        this.notifySrv.success();
-        this.getList();
-        this.reset();
-      });
-    }
-  }
+
   delete($event) {
-    if (this.org.id !== undefined) {
-      this.orgSrv.delete({ request: { id: this.org.id } }).subscribe(x => {
+    if ($event.id !== undefined) {
+      this.orgSrv.delete({ request: { id: $event.id } }).subscribe(x => {
         this.notifySrv.success();
-        this.reset();
         this.getList();
+        this.getSubItem();
       });
     } else {
       this.notifySrv.info('请选择需要删除的记录！');

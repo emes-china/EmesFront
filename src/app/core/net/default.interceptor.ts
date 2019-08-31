@@ -148,7 +148,8 @@ export class DefaultInterceptor implements HttpInterceptor {
               new HttpResponse({
                 ...ev,
                 // body: isJson(body.entity) ? camelCaseJSONKey(getRealJsonData(body.entity)) : body.entity,
-                body: isJson(body.entity) ? camelCaseJSONKey(JSON.parse(body.entity)) : body.entity,
+                // body: isJson(body.entity) ? camelCaseJSONKey(JSON.parse(body.entity)) : body.entity,
+                body: body.entity,
               }),
             );
             // 或者依然保持完整的格式
