@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd';
 import { NgForm } from '@angular/forms';
 import { IOrganizationService } from '@System';
-import { NotificationService } from '@core';
+import { NotificationService, Mode } from '@core';
 
 @Component({
   selector: 'zc-organization-edit',
@@ -13,29 +13,34 @@ export class OrganizationEditComponent {
   @ViewChild('f', { static: false }) f: NgForm;
   @Input()
   record: any;
+  @Input()
+  mode: Mode = Mode.Add;
+  @Input()
+  extra: any;
+
   initialOrg = {
     parentId: '',
     name: '',
     status: 1,
     sortNo: 10,
   };
-  org;
-
-  constructor(private modal: NzModalRef, private notifySrv: NotificationService, private orgSrv: IOrganizationService) {
-    this.org = this.record;
-  }
+  constructor(
+    private modal: NzModalRef,
+    private notifySrv: NotificationService,
+    private orgSrv: IOrganizationService,
+  ) {}
 
   reset() {
     this.f.reset(this.initialOrg);
   }
-  save($event) {
-    if (this.org.id === undefined) {
-      this.orgSrv.create({ request: this.org }).subscribe(x => {
+  save() {
+    if (this.record.id === undefined) {
+      this.orgSrv.create({ request: this.record }).subscribe(x => {
         this.notifySrv.success();
         this.reset();
       });
     } else {
-      this.orgSrv.update(this.org).subscribe(x => {
+      this.orgSrv.update(this.record).subscribe(x => {
         this.notifySrv.success();
         this.reset();
       });

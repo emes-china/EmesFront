@@ -3,11 +3,12 @@ import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angula
 import { BaseComponent } from '@layout/base.component';
 import { Router } from '@angular/router';
 import { IOrganizationService } from '@System';
-import { NotificationService, ArrayService } from '@core';
-import { STColumn } from '@delon/abc';
+import { NotificationService, ArrayService, Mode } from '@core';
+import { STColumn, STData } from '@delon/abc';
 import { StatusColumnBadge } from '@shared';
 import { OrganizationEditComponent } from '../organization-edit/organization-edit.component';
 import { ModalHelper } from '@delon/theme';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'zc-organization-list',
@@ -39,6 +40,14 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
           type: 'modal',
           modal: {
             component: OrganizationEditComponent,
+            size: 'sm',
+            params: (record: STData) => {
+              return {
+                record,
+                mode: Mode.Edit,
+                extra: this.selectNodes,
+              };
+            },
           },
           click: (_record, modal) => {},
         },
@@ -58,7 +67,7 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
     injector: Injector,
     private arrSrv: ArrayService,
     private orgSrv: IOrganizationService,
-    private modalHelper: ModalHelper,
+    private modalSrv: NzModalService,
   ) {
     super(injector);
   }
@@ -98,8 +107,18 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
   }
 
   add($event) {
-    this.modalHelper.create(OrganizationEditComponent, { record: { org: this.initialOrg } }).subscribe(x => {
-      console.log(x);
+    this.modalSrv.create({
+      nzContent: OrganizationEditComponent,
+      nzTitle: '新增',
+      nzComponentParams: {
+        record: this.initialOrg,
+        mode: Mode.Add,
+        extra: this.selectNodes,
+      },
+      nzOnOk: c => {
+        c.save();
+        return false;
+      },
     });
   }
   addChild($event) {

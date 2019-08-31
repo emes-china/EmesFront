@@ -5,3 +5,4 @@ export * from './startup/startup.service';
 export * from './service/notification.service';
 export * from './service/app.service';
 export * from './service/array.service';
+export * from './model/mode';
