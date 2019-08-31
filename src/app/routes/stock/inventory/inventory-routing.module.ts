@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SchemeListComponent } from './scheme-list/scheme-list.component';
+import { InventoryListComponent } from './inventory-list/inventory-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SchemeListComponent,
+    component: InventoryListComponent,
   },
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FlowSchemeRoutingModule {}
+export class InventoryRoutingModule {}

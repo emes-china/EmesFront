@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import { SharedModule } from '@shared';
 import { FlowFormRoutingModule } from './flow-form-routing.module';
-import { FormListComponent } from './form-list/form-list.component';
 import { FormEditComponent } from './form-edit/form-edit.component';
-
+import { FormListComponent } from './form-list/form-list.component';
 
 @NgModule({
   declarations: [FormListComponent, FormEditComponent],
-  imports: [
-    CommonModule,
-    FlowFormRoutingModule
-  ]
+  imports: [SharedModule, FlowFormRoutingModule],
+  entryComponents: [FormEditComponent],
 })
-export class FlowFormModule { }
+export class FlowFormModule {}

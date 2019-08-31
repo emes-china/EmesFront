@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { BaseModalComponent, Mode } from '@shared';
 import { NgForm } from '@angular/forms';
 import { initialStatusSelected } from '@shared/model/status-type';
-import { deepCopy } from '@delon/util';
+import { deepCopy, LazyService } from '@delon/util';
 import { NzModalRef } from 'ng-zorro-antd';
 import { IFormService } from '@System';
 
@@ -13,19 +13,37 @@ import { IFormService } from '@System';
 })
 export class FormEditComponent extends BaseModalComponent {
   @ViewChild('f', { static: false }) f: NgForm;
-  initialOrg = {
-    parentId: undefined,
+  initialForm = {
+    title: '',
     name: '',
+    desc: '',
     status: 1,
+    frmType: 0,
+    webId: undefined,
+    fields: 0,
+    contentData: '',
+    contentParse: '',
+    content: '',
+    sortCode: 10,
   };
   statusSelected = deepCopy(initialStatusSelected);
 
-  constructor(injector: Injector, modalRef: NzModalRef, private formSrv: IFormService) {
+  constructor(injector: Injector, modalRef: NzModalRef, private formSrv: IFormService, private lazySrv: LazyService) {
     super(injector, modalRef);
+    lazySrv
+      .load([
+        './assets/ueditor/ueditor.config.js',
+        './assets/ueditor/ueditor.all.min.js',
+        './assets/ueditor/lang/zh-cn/zh-cn.js',
+        './assets/ueditor/formdesign/leipi.Formdesign.v4.js',
+      ])
+      .then(x => {
+        console.log(x);
+      });
   }
 
   reset() {
-    this.f.reset(this.initialOrg);
+    this.f.reset(this.initialForm);
   }
 
   ok() {

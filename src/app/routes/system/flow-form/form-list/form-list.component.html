@@ -32,33 +32,7 @@
   </div>
 </div>
 <div nz-row nzGutter="24">
-  <div nz-col nzMd="24" nzLg="7">
-    <nz-card [nzBordered]="false" nzSize="small" [nzTitle]="titleTpl">
-      <ng-template #titleTpl>
-        <a (click)="all()">
-          所有机构>>
-        </a>
-      </ng-template>
-
-      <nz-tree
-        [nzData]="nodes"
-        nzExpandAll
-        nzBlockNode
-        (nzClick)="select($event)"
-        class="mhb"
-        [nzTreeTemplate]="nzTreeTemplate"
-      >
-      </nz-tree>
-      <ng-template #nzTreeTemplate let-node>
-        <span class="e_tree-node" [ngClass]="{ 'e_tree-node-selected': node.isSelected }">
-          <i nz-icon nzType="file" class="mr4"></i>
-          <span class="file-name">{{ node?.origin?.no }}</span>
-          <span class="file-desc"> {{ node?.origin?.name }}</span>
-        </span>
-      </ng-template>
-    </nz-card>
-  </div>
-  <div nz-col nzMd="24" nzLg="17">
+  <div nz-col nzMd="24">
     <nz-card [nzBordered]="false" nzSize="small">
       <st #st [data]="list" size="small" [columns]="columns"></st>
     </nz-card>

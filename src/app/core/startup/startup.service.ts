@@ -114,11 +114,11 @@ export class StartupService {
             children: [
               {
                 text: '流程设计',
-                link: '/system/organization',
+                link: '/system/flow-scheme',
               },
               {
                 text: '表单设计',
-                link: '/system/post',
+                link: '/system/flow-form',
               },
               {
                 text: '部门管理',
@@ -137,6 +137,17 @@ export class StartupService {
               {
                 text: '用户管理',
                 link: '/system/user',
+              },
+            ],
+          },
+          {
+            text: '仓库',
+            icon: { type: 'icon', value: 'appstore' },
+            open: true,
+            children: [
+              {
+                text: '库存管理',
+                link: '/stock/inventory',
               },
             ],
           },

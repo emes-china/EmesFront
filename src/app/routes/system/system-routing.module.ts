@@ -22,6 +22,14 @@ const routes: Routes = [
     path: 'module',
     loadChildren: () => import('./module/module.module').then(m => m.ModuleModule),
   },
+  {
+    path: 'flow-form',
+    loadChildren: () => import('./flow-form/flow-form.module').then(m => m.FlowFormModule),
+  },
+  {
+    path: 'flow-scheme',
+    loadChildren: () => import('./flow-scheme/flow-scheme.module').then(m => m.FlowSchemeModule),
+  },
 ];
 
 @NgModule({
