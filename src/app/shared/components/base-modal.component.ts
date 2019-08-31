@@ -1,14 +1,10 @@
-import { Component, Injector, Input } from '@angular/core';
+import { Injector, Input } from '@angular/core';
+import { deepCopy } from '@delon/util';
 import { NzModalRef } from 'ng-zorro-antd';
 import { Mode } from '../model/mode';
 import { ModalService } from '../service/modal.service';
 import { NotificationService } from '../service/notification.service';
-import { deepCopy } from '@delon/util';
 
-@Component({
-  selector: 'zc-base-modal',
-  template: ``,
-})
 export class BaseModalComponent {
   private _record: any;
   private _extra: any;
