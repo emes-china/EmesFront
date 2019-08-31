@@ -25,18 +25,16 @@ export class OrganizationEditComponent extends BaseModalComponent {
   }
 
   ok() {
-    if (this.record.id === undefined) {
-      this.orgSrv.create({ request: this.record }).subscribe(x => {
-        this.notifySrv.success();
-        this.reset();
-        this.modalRef.close(true);
-      });
-    } else {
-      this.orgSrv.update({ request: this.record }).subscribe(x => {
-        this.notifySrv.success();
-        this.reset();
-        this.modalRef.close(true);
-      });
+    let srv;
+    if (this.mode == Mode.Add) {
+      srv = this.orgSrv.create({ request: this.record });
+    } else if (this.mode == Mode.Edit) {
+      srv = this.orgSrv.update({ request: this.record });
     }
+    srv.subscribe(x => {
+      this.notifySrv.success();
+      this.reset();
+      this.modalRef.close(true);
+    });
   }
 }
