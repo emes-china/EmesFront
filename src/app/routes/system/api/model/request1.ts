@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeleteModuleDto } from './deleteModuleDto';
+import { CreateFormDto } from './createFormDto';
 
 
 export interface Request1 { 
-    request?: DeleteModuleDto;
+    request?: CreateFormDto;
 }

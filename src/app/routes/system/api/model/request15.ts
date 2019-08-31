@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateResourceDto } from './createResourceDto';
+import { CreatePostDto } from './createPostDto';
 
 
 export interface Request15 { 
-    request?: CreateResourceDto;
+    request?: CreatePostDto;
 }

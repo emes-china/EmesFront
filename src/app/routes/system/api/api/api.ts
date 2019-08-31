@@ -1,3 +1,5 @@
+export * from './iForm.service';
+import { IFormService } from './iForm.service';
 export * from './iModule.service';
 import { IModuleService } from './iModule.service';
 export * from './iOrganization.service';
@@ -12,4 +14,4 @@ export * from './iTest.service';
 import { ITestService } from './iTest.service';
 export * from './iUser.service';
 import { IUserService } from './iUser.service';
-export const APIS = [IModuleService, IOrganizationService, IPostService, IResourceService, IRoleService, ITestService, IUserService];
+export const APIS = [IFormService, IModuleService, IOrganizationService, IPostService, IResourceService, IRoleService, ITestService, IUserService];

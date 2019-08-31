@@ -11,6 +11,7 @@
 import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { IFormService } from './api/iForm.service';
 import { IModuleService } from './api/iModule.service';
 import { IOrganizationService } from './api/iOrganization.service';
 import { IPostService } from './api/iPost.service';
@@ -24,6 +25,7 @@ import { IUserService } from './api/iUser.service';
   declarations: [],
   exports:      [],
   providers: [
+    IFormService,
     IModuleService,
     IOrganizationService,
     IPostService,
