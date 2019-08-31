@@ -124,10 +124,7 @@ export class StartupService {
                 text: '部门管理',
                 link: '/system/organization',
               },
-              {
-                text: '分类管理',
-                link: '/system/user',
-              },
+
               {
                 text: '模块管理',
                 link: '/system/module',
@@ -137,12 +134,6 @@ export class StartupService {
                 text: '角色管理',
                 link: '/system/role',
               },
-
-              {
-                text: '资源管理',
-                link: '/system/orgmap',
-              },
-
               {
                 text: '用户管理',
                 link: '/system/user',

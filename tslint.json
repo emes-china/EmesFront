@@ -20,7 +20,7 @@
     "directive-selector": [
       true,
       "attribute",
-      ["app", "passport", "exception", "layout", "header","emes"],
+      ["app", "passport", "exception", "layout", "header","zc"],
       "camelCase"
     ],
     "component-selector": [

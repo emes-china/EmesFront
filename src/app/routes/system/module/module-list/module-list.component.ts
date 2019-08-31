@@ -20,12 +20,7 @@ export class ModuleListComponent extends BaseComponent implements OnInit {
     sortNo: 10,
   };
   org;
-  constructor(
-    injector: Injector,
-    private notifySrv: NotificationService,
-    private arrSrv: ArrayService,
-    private moduleSrv: IModuleService,
-  ) {
+  constructor(injector: Injector, private arrSrv: ArrayService, private moduleSrv: IModuleService) {
     super(injector);
   }
   ngOnInit() {

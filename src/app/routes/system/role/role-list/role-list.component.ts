@@ -91,13 +91,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
   title = '新增角色';
   loading = false;
 
-  constructor(
-    injector: Injector,
-    private notifySrv: NotificationService,
-    private roleSrv: IRoleService,
-    private modalSrv: NzModalService,
-    public http: _HttpClient,
-  ) {
+  constructor(injector: Injector, private roleSrv: IRoleService, private modalSrv: NzModalService) {
     super(injector);
   }
 
@@ -116,19 +110,13 @@ export class RoleListComponent extends BaseComponent implements OnInit {
   }
 
   getList() {
-    this.http
-      .post('/api/role/query', {
-        request: {
-          keyword: this.keyword,
-        },
-      })
-      .subscribe((x: any) => {
-        if (!x) {
-          return;
-        }
-        this.list = x.data;
-        this.notifySrv.success();
-      });
+    this.roleSrv.query({ request: { name: '' } }).subscribe((x: any) => {
+      if (!x) {
+        return;
+      }
+      this.list = x.data;
+      this.notifySrv.success();
+    });
   }
 
   add($event: any) {
