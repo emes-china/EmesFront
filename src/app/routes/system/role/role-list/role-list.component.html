@@ -42,8 +42,8 @@
   [nzTitle]="title"
   [nzFooter]="footerTip"
   [nzMaskClosable]="false"
-  (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleOk()"
+  (nzOnCancel)="handleCancel($event)"
+  (nzOnOk)="handleOk($event)"
 >
   <form nz-form #f="ngForm" se-container size="compact" gutter="24">
     <se label="角色名称" required col="1">
