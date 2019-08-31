@@ -1,7 +1,13 @@
 <div class="tool-bar">
   <div>
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" nzSize="small">
-      <input type="text" nz-input placeholder="关键字" [(ngModel)]="keyword" (keyup.enter)="refresh()" />
+      <input
+        type="text"
+        nz-input
+        placeholder="关键字"
+        [(ngModel)]="searchParams.Where.KeyWord"
+        (keyup.enter)="refresh()"
+      />
     </nz-input-group>
     <ng-template #suffixIconButton>
       <button nz-button nzType="primary" nzSize="small" nzSearch (click)="refresh()">
@@ -10,13 +16,13 @@
     </ng-template>
   </div>
   <div>
-    <button type="button" nz-button nzType="default" nzSize="small" (click)="add($event)">
+    <button type="button" nz-button nzType="default" nzSize="small" (click)="add()">
       <i nz-icon nzType="plus" nzTheme="outline"></i>
       为角色分配模块
     </button>
   </div>
   <div>
-    <button type="button" nz-button nzType="default" nzSize="small" (click)="add($event)">
+    <button type="button" nz-button nzType="default" nzSize="small" (click)="add()">
       <i nz-icon nzType="plus" nzTheme="outline"></i>
       新增
     </button>
@@ -32,44 +38,15 @@
 <div nz-row nzGutter="24">
   <div nz-col nzMd="24" nzLg="24">
     <nz-card [nzBordered]="false" nzSize="small">
-      <st #st [data]="list" size="small" [columns]="columns"></st>
+      <st
+        [data]="list"
+        size="small"
+        [columns]="columns"
+        [page]="page"
+        [pi]="searchParams.PageIndex"
+        [ps]="searchParams.PageSize"
+        (change)="stChange($event)"
+      ></st>
     </nz-card>
   </div>
 </div>
-
-<nz-modal
-  [(nzVisible)]="isVisible"
-  [nzTitle]="title"
-  [nzFooter]="footerTip"
-  [nzMaskClosable]="false"
-  (nzOnCancel)="handleCancel($event)"
-  (nzOnOk)="handleOk($event)"
->
-  <form nz-form #f="ngForm" se-container size="compact" gutter="24">
-    <se label="角色名称" required col="1">
-      <input type="text" nz-input [(ngModel)]="role.name" name="role_name" required />
-    </se>
-
-    <se label="状态" col="1">
-      <nz-select class="zc_select_default" [(ngModel)]="role.status" name="role_status" nzPlaceHolder="请选择">
-        <ng-container *ngFor="let option of statusSelected">
-          <nz-option [nzValue]="option.Value" [nzLabel]="option.Text"></nz-option>
-        </ng-container>
-      </nz-select>
-    </se>
-  </form>
-
-  <ng-template #footerTip>
-    <button nz-button type="button" nzType="default" (click)="reset()">取消</button>
-    <button
-      nz-button
-      type="submit"
-      nzType="primary"
-      [disabled]="f.invalid"
-      [nzLoading]="loading"
-      (click)="handleOk($event)"
-    >
-      保存
-    </button>
-  </ng-template>
-</nz-modal>

@@ -1,7 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Mode, NotificationService } from '@core';
+import { deepCopy } from '@delon/util';
 import { IRoleService } from '@System';
-import { NotificationService } from '@core';
-import { NzModalRef } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd';
+
+export const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正常', Value: 1 }];
 
 @Component({
   selector: 'zc-role-edit',
@@ -9,7 +13,18 @@ import { NzModalRef } from 'ng-zorro-antd';
   styles: [],
 })
 export class RoleEditComponent implements OnInit {
-  private _record = null;
+  @ViewChild('f', { static: false }) f: NgForm;
+  loading = false;
+
+  initialRole = {
+    parentId: '',
+    name: '',
+    status: 1,
+    sortNo: 10,
+  };
+  statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
+
+  private _record = deepCopy(this.initialRole);
   @Input()
   set record(value) {
     if (value) {
@@ -20,7 +35,37 @@ export class RoleEditComponent implements OnInit {
     return this._record;
   }
 
-  constructor(private modal: NzModalRef, private notifySrv: NotificationService, private roleSrv: IRoleService) {}
+  @Input()
+  mode: Mode = Mode.Add;
+
+  constructor(
+    private modalSrv: NzModalService,
+    private notifySrv: NotificationService,
+    private roleSrv: IRoleService,
+  ) {}
 
   ngOnInit() {}
+
+  reset() {
+    this.f.reset(this.initialRole);
+  }
+
+  save() {
+    this.loading = true;
+    if (this.record.id === undefined) {
+      this.roleSrv.create({ request: this.record }).subscribe(x => {
+        this.notifySrv.success();
+        this.reset();
+        this.modalSrv.closeAll();
+        this.loading = false;
+      });
+    } else {
+      this.roleSrv.update({ request: this.record }).subscribe(x => {
+        this.notifySrv.success();
+        this.reset();
+        this.modalSrv.closeAll();
+        this.loading = false;
+      });
+    }
+  }
 }

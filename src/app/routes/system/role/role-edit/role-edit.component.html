@@ -1,1 +1,13 @@
-<p>role-edit works!</p>
+<form nz-form #f="ngForm" se-container size="compact" gutter="24">
+  <se label="角色名称" required col="1">
+    <input type="text" nz-input [(ngModel)]="record.name" name="record_name" required />
+  </se>
+
+  <se label="状态" col="1">
+    <nz-select class="zc_select_default" [(ngModel)]="record.status" name="record_status" nzPlaceHolder="请选择">
+      <ng-container *ngFor="let option of statusSelected">
+        <nz-option [nzValue]="option.Value" [nzLabel]="option.Text"></nz-option>
+      </ng-container>
+    </nz-select>
+  </se>
+</form>
