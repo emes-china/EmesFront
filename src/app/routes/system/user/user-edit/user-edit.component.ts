@@ -1,34 +1,38 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Mode, NotificationService } from '@core';
 import { deepCopy } from '@delon/util';
-import { Mode, NotificationService } from '@shared';
-import { IRoleService } from '@System';
+import { IUserService } from '@System';
 import { NzModalService } from 'ng-zorro-antd';
 
 export const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正常', Value: 1 }];
 
 @Component({
-  selector: 'zc-role-edit',
-  templateUrl: './role-edit.component.html',
+  selector: 'zc-user-edit',
+  templateUrl: './user-edit.component.html',
   styles: [],
 })
-export class RoleEditComponent implements OnInit {
+export class UserEditComponent implements OnInit {
   @ViewChild('f', { static: false }) f: NgForm;
   loading = false;
 
-  initialRole = {
+  initialUser = {
     parentId: '',
+    loginName: '',
     name: '',
+    orgName: '',
+    orgId: [],
     status: 1,
-    sortNo: 10,
+    summary: '',
   };
+
   statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
 
-  private _record = deepCopy(this.initialRole);
+  private _record = deepCopy(this.initialUser);
   @Input()
   set record(value) {
     if (value) {
-      this._record = value;
+      this._record = { ...this._record, ...value };
     }
   }
   get record() {
@@ -38,29 +42,32 @@ export class RoleEditComponent implements OnInit {
   @Input()
   mode: Mode = Mode.Add;
 
+  @Input()
+  extra: any = [];
+
   constructor(
     private modalSrv: NzModalService,
     private notifySrv: NotificationService,
-    private roleSrv: IRoleService,
+    private userSrv: IUserService,
   ) {}
 
   ngOnInit() {}
 
   reset() {
-    this.f.reset(this.initialRole);
+    this.f.reset(this.initialUser);
   }
 
   save() {
     this.loading = true;
     if (this.record.id === undefined) {
-      this.roleSrv.create({ request: this.record }).subscribe(x => {
+      this.userSrv.create({ request: this.record }).subscribe(x => {
         this.notifySrv.success();
         this.reset();
         this.modalSrv.closeAll();
         this.loading = false;
       });
     } else {
-      this.roleSrv.update({ request: this.record }).subscribe(x => {
+      this.userSrv.update(this.record).subscribe(x => {
         this.notifySrv.success();
         this.reset();
         this.modalSrv.closeAll();

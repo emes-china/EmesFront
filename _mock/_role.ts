@@ -9,7 +9,7 @@ let entity = [
   },
   {
     name: '测试',
-    status: 1,
+    status: 2,
     id: '0a7ebd0c-78d6-4fbc-8fbe-6fc25c3a932d',
   },
   {

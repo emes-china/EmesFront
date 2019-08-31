@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { STColumn, STColumnButton, STComponent, STData } from '@delon/abc';
+import { STColumn, STColumnButton, STComponent, STData, STPage } from '@delon/abc';
 import { ModalHelper } from '@delon/theme';
 import { deepCopy } from '@delon/util';
 import { BaseComponent } from '@shared/components/base.component';
@@ -8,8 +8,7 @@ import { StatusColumnBadge } from '@shared';
 import { IRoleService } from '@System';
 import { NzModalService } from 'ng-zorro-antd';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
-
-export const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正常', Value: 1 }];
+import { Mode } from '@core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,21 +17,6 @@ export const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正
   styles: [],
 })
 export class RoleListComponent extends BaseComponent implements OnInit {
-  @ViewChild('f', { static: false }) f: NgForm;
-
-  isVisible = false;
-  title = '新增角色';
-  loading = false;
-
-  nodes = [];
-  selectNodes = [];
-  initialRole = {
-    id: undefined,
-    name: '',
-    status: 1,
-  };
-  role: any;
-  keyword = '';
   columns: STColumn[] = [
     {
       title: '角色名称',
@@ -42,7 +26,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
         this.edit(record);
       },
     },
-    { title: '状态', index: 'status', type: 'badge', badge: StatusColumnBadge },
+    { title: '状态', index: 'status', type: 'badge', width: 100, badge: StatusColumnBadge },
     {
       title: '操作',
       width: 200,
@@ -84,7 +68,6 @@ export class RoleListComponent extends BaseComponent implements OnInit {
           icon: 'delete',
           type: 'del',
           click: (record, _modal, comp) => {
-            this.role = record;
             this.delete(record);
           },
           iif: (item: STData, btn: STColumnButton, column: STColumn) => {
@@ -94,21 +77,23 @@ export class RoleListComponent extends BaseComponent implements OnInit {
       ],
     },
   ];
+
+  page: STPage = {
+    show: true,
+    front: true, // 后端分页 改为 false
+    showSize: true,
+    showQuickJumper: true,
+    total: true,
+  };
+
+  searchParams = { Where: { KeyWord: null }, PageIndex: 1, PageSize: 30 };
   list = [];
 
-  statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
-
-  constructor(
-    injector: Injector,
-    private roleSrv: IRoleService,
-    private modalSrv: NzModalService,
-    private modalHelper: ModalHelper,
-  ) {
+  constructor(injector: Injector, private roleSrv: IRoleService, private modalSrv: NzModalService) {
     super(injector);
   }
 
   ngOnInit() {
-    this.role = deepCopy(this.initialRole);
     this.getList();
   }
 
@@ -116,13 +101,24 @@ export class RoleListComponent extends BaseComponent implements OnInit {
     this.getList();
   }
 
-  reset() {
-    this.f.reset(this.initialRole);
-    this.handleCancel();
+  stChange(e: any) {
+    switch (e.type) {
+      case 'pi':
+        this.searchParams.PageIndex = e.pi;
+        this.getList(false);
+        break;
+      case 'ps':
+        this.searchParams.PageSize = e.ps;
+        this.getList();
+        break;
+    }
   }
 
-  getList() {
-    this.roleSrv.query({ request: { name: '' } }).subscribe((x: any) => {
+  getList(resetPageIndex = true) {
+    if (resetPageIndex) {
+      this.searchParams.PageIndex = 1;
+    }
+    this.roleSrv.query({ request: this.searchParams as any }).subscribe((x: any) => {
       if (!x) {
         return;
       }
@@ -130,58 +126,60 @@ export class RoleListComponent extends BaseComponent implements OnInit {
     });
   }
 
-  add($event: any) {
-    this.role = deepCopy(this.initialRole);
-    this.isVisible = true;
-
-    this.modalHelper.create(RoleEditComponent, { record: this.role }).subscribe(x => {
-      console.log(x);
+  add() {
+    const nzModalRef = this.modalSrv.create({
+      nzContent: RoleEditComponent,
+      nzTitle: '新增',
+      nzComponentParams: {
+        mode: Mode.Add,
+      },
+      nzOnOk: e => {
+        e.save();
+        return false;
+      },
     });
-  }
 
-  edit($event: any) {
-    this.role = {
-      id: $event.id,
-      status: $event.status,
-      name: $event.name,
-    };
-    this.isVisible = true;
-  }
-
-  handleCancel = ($event?: any) => {
-    this.isVisible = false;
-  };
-
-  handleOk = ($event?: any) => {
-    this.save($event);
-    return false;
-    // this.isVisible = false;
-  };
-
-  save($event?: any) {
-    // this.loading = true;
-    if (this.role.id === undefined) {
-      this.roleSrv.create({ request: this.role }).subscribe(x => {
-        this.notifySrv.success();
-        this.getList();
-        this.reset();
-        this.loading = false;
-      });
-    } else {
-      this.roleSrv.update({ request: this.role }).subscribe(x => {
-        this.notifySrv.success();
-        this.getList();
-        this.reset();
-        this.loading = false;
+    if (nzModalRef) {
+      nzModalRef.afterClose.subscribe(x => {
+        if (x) {
+          this.getList();
+        }
       });
     }
   }
 
-  delete($event: any) {
-    if (this.role.id !== undefined) {
-      this.roleSrv.delete({ request: { id: this.role.id } }).subscribe(x => {
+  edit(record: any) {
+    record = {
+      id: record.id,
+      status: record.status,
+      name: record.name,
+    };
+    const nzModalRef = this.modalSrv.create({
+      nzContent: RoleEditComponent,
+      nzTitle: `编辑`,
+      nzComponentParams: {
+        record,
+        mode: Mode.Edit,
+      },
+      nzOnOk: e => {
+        e.save();
+        return false;
+      },
+    });
+
+    if (nzModalRef) {
+      nzModalRef.afterClose.subscribe(x => {
+        if (x) {
+          this.getList();
+        }
+      });
+    }
+  }
+
+  delete(e: any) {
+    if (e.id !== undefined) {
+      this.roleSrv.delete({ request: { id: e.id } }).subscribe(x => {
         this.notifySrv.success();
-        this.reset();
         this.getList();
       });
     } else {
@@ -189,16 +187,15 @@ export class RoleListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  setStatus($event: any) {
-    if ($event.id !== undefined) {
+  setStatus(e: any) {
+    if (e.id !== undefined) {
       const param = {
-        id: $event.id,
-        name: $event.name,
-        status: $event.status === 1 ? 2 : 1,
+        id: e.id,
+        name: e.name,
+        status: e.status === 1 ? 2 : 1,
       };
       this.roleSrv.update({ request: param }).subscribe(x => {
         this.notifySrv.success();
-        this.reset();
         this.getList();
       });
     } else {
