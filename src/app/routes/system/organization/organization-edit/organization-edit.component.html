@@ -15,8 +15,9 @@
   </se>
   <se label="状态" col="1">
     <nz-select [(ngModel)]="record.status" name="record_status" nzPlaceHolder="请选择 ">
-      <nz-option [nzValue]="1" [nzLabel]="'正常'"></nz-option>
-      <nz-option [nzValue]="2" [nzLabel]="'停用'"></nz-option>
+      <ng-container *ngFor="let option of statusSelected">
+        <nz-option [nzValue]="option.Value" [nzLabel]="option.Text"></nz-option>
+      </ng-container>
     </nz-select>
   </se>
 </form>

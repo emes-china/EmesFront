@@ -1,6 +1,8 @@
-import { Component, Injector, ViewChild, Input } from '@angular/core';
+import { Component, Injector, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { deepCopy } from '@delon/util';
 import { BaseModalComponent, Mode } from '@shared';
+import { initialStatusSelected } from '@shared/model/status-type';
 import { IOrganizationService } from '@System';
 import { NzModalRef } from 'ng-zorro-antd';
 
@@ -16,6 +18,8 @@ export class OrganizationEditComponent extends BaseModalComponent {
     name: '',
     status: 1,
   };
+  statusSelected = deepCopy(initialStatusSelected);
+
   constructor(injector: Injector, modalRef: NzModalRef, private orgSrv: IOrganizationService) {
     super(injector, modalRef);
   }
