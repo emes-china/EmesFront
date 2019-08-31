@@ -2,10 +2,9 @@ import { Component, Injector, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { deepCopy } from '@delon/util';
 import { BaseModalComponent } from '@shared';
+import { initialStatusSelected } from '@shared/model/status-type';
 import { IUserService } from '@System';
 import { NzModalRef } from 'ng-zorro-antd';
-
-export const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正常', Value: 1 }];
 
 @Component({
   selector: 'zc-user-edit',
@@ -26,7 +25,7 @@ export class UserEditComponent extends BaseModalComponent {
     summary: '',
   };
 
-  statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
+  statusSelected = deepCopy(initialStatusSelected);
 
   constructor(injector: Injector, public modalRef: NzModalRef, private userSrv: IUserService) {
     super(injector, modalRef);
