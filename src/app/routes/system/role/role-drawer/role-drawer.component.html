@@ -1,0 +1,106 @@
+<div style="width: 800px">
+  <span [ngSwitch]="step">
+    <p *ngSwitchCase="1">
+      <ng-container *ngTemplateOutlet="moduleTip"></ng-container>
+    </p>
+    <p *ngSwitchCase="2">
+      <ng-container *ngTemplateOutlet="operateTip"></ng-container>
+    </p>
+    <p *ngSwitchDefault>
+      <ng-container *ngTemplateOutlet="fieldTip"></ng-container>
+    </p>
+  </span>
+
+  <!-- 选择可见模块 -->
+  <ng-template #moduleTip>
+    <nz-tree
+      [nzData]="nodes"
+      nzCheckable
+      nzMultiple
+      [nzCheckedKeys]="defaultCheckedKeys"
+      [nzExpandedKeys]="defaultExpandedKeys"
+      [nzSelectedKeys]="defaultSelectedKeys"
+      (nzClick)="nzClick($event)"
+      (nzCheckBoxChange)="nzCheckBox($event)"
+    >
+    </nz-tree>
+  </ng-template>
+
+  <!-- 选择可见操作 -->
+  <ng-template #operateTip>
+    <nz-list [nzDataSource]="operates" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+      <ng-template #item let-item>
+        <nz-list-item>
+          <nz-list-item-meta [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+            <ng-template #nzTitle>
+              <h3>
+                {{ item.pname }} > {{ item.name }}
+                <ng-container *ngIf="!item.isSys || item.isField">
+                  (
+                  <ng-container *ngIf="!item.isSys">非系统模块</ng-container>
+                  <ng-container *ngIf="!item.isSys && item.isField">，</ng-container>
+                  <ng-container *ngIf="item.isField">可分配字段</ng-container>
+                  )
+                </ng-container>
+              </h3>
+            </ng-template>
+
+            <ng-template #nzDescription>
+              <nz-checkbox-wrapper class="full mt-md">
+                <div nz-row>
+                  <ng-container *ngFor="let chi of item.children">
+                    <div nz-col nzSpan="6" class="mb-sm">
+                      <label nz-checkbox [(ngModel)]="chi.checked">{{ chi.name }}</label>
+                    </div>
+                  </ng-container>
+                </div>
+              </nz-checkbox-wrapper>
+            </ng-template>
+          </nz-list-item-meta>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+  </ng-template>
+
+  <!-- 选择可见字段 -->
+  <ng-template #fieldTip>
+    <nz-list [nzDataSource]="fields" [nzRenderItem]="fieldItem" [nzItemLayout]="'horizontal'">
+      <ng-template #fieldItem let-item>
+        <nz-list-item>
+          <nz-list-item-meta [nzTitle]="nzTitle2" [nzDescription]="nzDescription2">
+            <ng-template #nzTitle2>
+              <h3>
+                {{ item.pname }} > {{ item.name }}
+                <ng-container *ngIf="!item.isSys || item.isField">
+                  (
+                  <ng-container *ngIf="!item.isSys">非系统模块</ng-container>
+                  <ng-container *ngIf="!item.isSys && item.isField">，</ng-container>
+                  <ng-container *ngIf="item.isField">可分配字段</ng-container>
+                  )
+                </ng-container>
+              </h3>
+            </ng-template>
+
+            <ng-template #nzDescription2>
+              <nz-checkbox-wrapper class="full mt-md">
+                <div nz-row>
+                  <ng-container *ngFor="let chi of item.children">
+                    <div nz-col nzSpan="6" class="mb-sm">
+                      <label nz-checkbox [(ngModel)]="chi.checked">{{ chi.name }}</label>
+                    </div>
+                  </ng-container>
+                </div>
+              </nz-checkbox-wrapper>
+            </ng-template>
+          </nz-list-item-meta>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+  </ng-template>
+
+  <div class="drawer-footer">
+    <button nz-button (click)="cancel()">取消</button>
+    <button nz-button (click)="lastStep()" *ngIf="isShowLastBtn">上一步</button>
+    <button nz-button (click)="nextStep()" nzType="primary" *ngIf="isShowNextBtn">下一步</button>
+  </div>
+</div>

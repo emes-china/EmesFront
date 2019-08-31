@@ -5,6 +5,7 @@ import { BaseComponent } from '@shared/components/base.component';
 import { IRoleService } from '@System';
 import { NzModalService } from 'ng-zorro-antd';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
+import { RoleDrawerComponent } from '../role-drawer/role-drawer.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -33,6 +34,25 @@ export class RoleListComponent extends BaseComponent implements OnInit {
           type: 'link',
           click: (_record, modal) => {
             this.edit(_record);
+          },
+        },
+        {
+          text: '分配模块',
+          icon: 'plus',
+          type: 'drawer',
+          drawer: {
+            component: RoleDrawerComponent,
+            title: '角色分配可见模块',
+            size: 'lg',
+            drawerOptions: { nzMaskClosable: false },
+            params: (record: STData) => {
+              return { record };
+            },
+          },
+          click: (_record, modal) => {
+            if (modal) {
+              this.refresh();
+            }
           },
         },
         {

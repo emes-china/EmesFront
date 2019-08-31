@@ -1,6 +1,7 @@
 import { MockRequest } from '@delon/mock';
 
 const list: any[] = [];
+const userList: any[] = [];
 const total = 50;
 
 for (let i = 0; i < total; i += 1) {
@@ -21,6 +22,19 @@ for (let i = 0; i < total; i += 1) {
     updatedAt: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
     createdAt: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
     progress: Math.ceil(Math.random() * 100),
+  });
+}
+
+for (let i = 1; i < total; i++) {
+  userList.push({
+    id: `77e6d0c3-f9e1-4933-92c3-c1c6eef${Math.floor(Math.random() * 10000) + i}`,
+    parentId: undefined,
+    loginName: `用户${i}`,
+    name: `姓名${i}`,
+    orgName: '',
+    orgId: [],
+    status: i % 3 === 0 ? 1 : 2,
+    summary: `${i}`,
   });
 }
 
@@ -116,5 +130,14 @@ export const USERS = {
   },
   'POST /register': {
     msg: 'ok',
+  },
+
+  'POST /api/user/query': (req: MockRequest) => {
+    return {
+      entity: userList,
+      isSucceed: true,
+      message: '',
+      statusCode: 200,
+    };
   },
 };

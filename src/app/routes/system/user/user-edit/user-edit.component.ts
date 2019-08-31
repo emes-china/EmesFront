@@ -41,14 +41,14 @@ export class UserEditComponent extends BaseModalComponent {
       this.userSrv.create({ request: this.record }).subscribe(x => {
         this.notifySrv.success();
         this.reset();
-        this.modalSrv.closeAll();
+        this.modalRef.close(true);
         this.loading = false;
       });
     } else {
       this.userSrv.update(this.record).subscribe(x => {
         this.notifySrv.success();
         this.reset();
-        this.modalSrv.closeAll();
+        this.modalRef.close(true);
         this.loading = false;
       });
     }
