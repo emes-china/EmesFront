@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { STColumn, STColumnButton, STComponent, STData, STPage } from '@delon/abc';
 import { ModalHelper } from '@delon/theme';
 import { deepCopy } from '@delon/util';
-import { BaseComponent } from '@layout/base.component';
+import { BaseComponent } from '@shared/components/base.component';
 import { StatusColumnBadge } from '@shared';
 import { IRoleService } from '@System';
 import { NzModalService } from 'ng-zorro-antd';

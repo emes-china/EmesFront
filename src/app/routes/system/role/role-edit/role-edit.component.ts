@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Mode, NotificationService } from '@core';
 import { deepCopy } from '@delon/util';
+import { Mode, NotificationService } from '@shared';
 import { IRoleService } from '@System';
 import { NzModalService } from 'ng-zorro-antd';
 

@@ -1,14 +1,10 @@
-import { Component, OnInit, Injector, ViewChild, TemplateRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
-import { BaseComponent } from '@layout/base.component';
-import { Router } from '@angular/router';
-import { IOrganizationService } from '@System';
-import { NotificationService, ArrayService, Mode } from '@core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { STColumn, STData } from '@delon/abc';
-import { StatusColumnBadge } from '@shared';
+import { ArrayService, Mode, StatusColumnBadge } from '@shared';
+import { BaseComponent } from '@shared/components/base.component';
+import { ModalService } from '@shared/service/modal.service';
+import { IOrganizationService } from '@System';
 import { OrganizationEditComponent } from '../organization-edit/organization-edit.component';
-import { ModalHelper } from '@delon/theme';
-import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'zc-organization-list',
@@ -19,10 +15,9 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
   nodes = [];
   selectNodes = [];
   initialOrg = {
-    parentId: '',
+    parentId: undefined,
     name: '',
     status: 1,
-    sortNo: 10,
   };
   org;
   keyword = '';
@@ -37,19 +32,14 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
         {
           text: '编辑',
           icon: 'edit',
-          type: 'modal',
-          modal: {
-            component: OrganizationEditComponent,
-            size: 'sm',
-            params: (record: STData) => {
-              return {
-                record,
-                mode: Mode.Edit,
-                extra: this.selectNodes,
-              };
-            },
+          type: 'link',
+          click: (_record, modal) => {
+            this.modalSrv.add(OrganizationEditComponent, { record: _record, extra: this.selectNodes }).subscribe(x => {
+              if (x) {
+                this.refresh();
+              }
+            });
           },
-          click: (_record, modal) => {},
         },
         {
           text: '删除',
@@ -67,21 +57,22 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
     injector: Injector,
     private arrSrv: ArrayService,
     private orgSrv: IOrganizationService,
-    private modalSrv: NzModalService,
+    private modalSrv: ModalService,
   ) {
     super(injector);
   }
   ngOnInit() {
     this.org = this.initialOrg;
-    this.getList();
+    this.refresh();
   }
   refresh() {
     this.getList();
+    this.getSubItem();
   }
 
   all() {
     this.keyword = '';
-    this.getList();
+    this.refresh();
   }
   getList() {
     this.orgSrv.query({ request: { name: '' } }).subscribe((x: any) => {
@@ -106,19 +97,11 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
       });
   }
 
-  add($event) {
-    this.modalSrv.create({
-      nzContent: OrganizationEditComponent,
-      nzTitle: '新增',
-      nzComponentParams: {
-        record: this.initialOrg,
-        mode: Mode.Add,
-        extra: this.selectNodes,
-      },
-      nzOnOk: c => {
-        c.save();
-        return false;
-      },
+  add() {
+    this.modalSrv.add(OrganizationEditComponent, { record: this.initialOrg, extra: this.selectNodes }).subscribe(x => {
+      if (x) {
+        this.refresh();
+      }
     });
   }
   addChild($event) {

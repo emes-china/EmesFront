@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NotificationService, ArrayService } from '@core';
-import { BaseComponent } from '@layout/base.component';
 import { IModuleService } from '@System';
+import { BaseComponent } from '@shared';
+import { ArrayService } from '@delon/util';
 
 @Component({
   selector: 'zc-module-list',

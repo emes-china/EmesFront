@@ -15,9 +15,9 @@ import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
-import { NotificationService } from '../service/notification.service';
+import { NotificationService } from '../../shared/service/notification.service';
 import { camelCaseJSONKey, isJson, getRealJsonData } from '@shared/utils/json';
-import { AppService } from '../service/app.service';
+import { AppService } from '../../shared/service/app.service';
 
 const CODEMESSAGE = {
   200: '服务器成功返回请求的数据。',

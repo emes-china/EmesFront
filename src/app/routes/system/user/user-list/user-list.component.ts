@@ -1,10 +1,8 @@
-import { Component, Injector, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ArrayService, Mode } from '@core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { STColumn, STColumnButton, STData, STPage } from '@delon/abc';
 import { deepCopy } from '@delon/util';
-import { BaseComponent } from '@layout/base.component';
-import { StatusColumnBadge } from '@shared';
+import { ArrayService, Mode, StatusColumnBadge } from '@shared';
+import { BaseComponent } from '@shared/components/base.component';
 import { IUserService } from '@System/api/iUser.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { initialStatusSelected } from '../../role/role-edit/role-edit.component';
