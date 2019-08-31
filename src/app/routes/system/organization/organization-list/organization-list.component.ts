@@ -25,9 +25,10 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
   org;
   keyword = '';
   columns: STColumn[] = [
-    { title: '层级ID', index: 'createId', default: '-' },
-    { title: '名称', index: '上级部门' },
-    { title: '状态', index: 'badge', type: 'badge', badge: StatusColumnBadge },
+    { title: '层级ID', index: 'cascadeId', default: '-' },
+    { title: '名称', index: 'name' },
+    { title: '上级部门', index: 'parentName', default: '-' },
+    { title: '状态', index: 'status', type: 'badge', badge: StatusColumnBadge },
     {
       title: '操作',
       buttons: [
@@ -38,6 +39,7 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
           click: (_record, modal) => {},
         },
         {
+          text: '删除',
           icon: 'delete',
           type: 'del',
           click: (record, _modal, comp) => {},
@@ -46,12 +48,7 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
     },
   ];
   list = [];
-  constructor(
-    injector: Injector,
-    private notifySrv: NotificationService,
-    private arrSrv: ArrayService,
-    private orgSrv: IOrganizationService,
-  ) {
+  constructor(injector: Injector, private arrSrv: ArrayService, private orgSrv: IOrganizationService) {
     super(injector);
   }
   ngOnInit() {
@@ -87,6 +84,7 @@ export class OrganizationListComponent extends BaseComponent implements OnInit {
       .subitem({ request: { id: this.org.id, name: this.keyword, pageIndex: 0, pageSize: 10 } })
       .subscribe((x: any) => {
         if (!x) return;
+        this.list = x;
       });
   }
 

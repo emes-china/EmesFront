@@ -90,12 +90,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
   title = '新增角色';
   loading = false;
 
-  constructor(
-    injector: Injector,
-    private notifySrv: NotificationService,
-    private roleSrv: IRoleService,
-    private modalSrv: NzModalService,
-  ) {
+  constructor(injector: Injector, private roleSrv: IRoleService, private modalSrv: NzModalService) {
     super(injector);
   }
 

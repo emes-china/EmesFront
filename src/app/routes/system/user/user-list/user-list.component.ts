@@ -85,12 +85,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
   title = '新增用户';
   loading = false;
 
-  constructor(
-    injector: Injector,
-    private notifySrv: NotificationService,
-    private arrSrv: ArrayService,
-    private userSrv: IUserService,
-  ) {
+  constructor(injector: Injector, private arrSrv: ArrayService, private userSrv: IUserService) {
     super(injector);
   }
 

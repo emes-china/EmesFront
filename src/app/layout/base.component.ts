@@ -4,12 +4,14 @@ import { ReuseTabService } from '@delon/abc';
 import { NotificationService } from '@core';
 
 @Component({
-  selector: 'emes-base',
+  selector: 'zc-base',
   template: ``,
 })
 export class BaseComponent {
-  constructor(public injector: Injector) {}
-
+  protected notifySrv: NotificationService;
+  constructor(public injector: Injector) {
+    this.notifySrv = injector.get(NotificationService);
+  }
   close($event) {
     const rt = this.injector.get(ReuseTabService);
     if (!rt.closable) {
