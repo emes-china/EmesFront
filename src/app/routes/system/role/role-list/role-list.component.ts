@@ -7,6 +7,7 @@ import { BaseComponent } from '@layout/base.component';
 import { StatusColumnBadge } from '@shared';
 import { IRoleService } from '@System';
 import { NzModalService } from 'ng-zorro-antd';
+import { _HttpClient } from '@delon/theme';
 
 export const initialStatusSelected = [{ Text: '停用', Value: 2 }, { Text: '正常', Value: 1 }];
 
@@ -52,7 +53,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
           popTitle: '确认禁用吗？',
           click: (_record, modal) => {},
           iif: (item: STData, btn: STColumnButton, column: STColumn) => {
-            return true;
+            return item.status === 1;
           },
         },
         {
@@ -62,7 +63,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
           popTitle: '确认禁用吗？',
           click: (_record, modal) => {},
           iif: (item: STData, btn: STColumnButton, column: STColumn) => {
-            return false;
+            return item.status === 2;
           },
         },
         {
@@ -74,13 +75,13 @@ export class RoleListComponent extends BaseComponent implements OnInit {
             this.delete(record);
           },
           iif: (item: STData, btn: STColumnButton, column: STColumn) => {
-            return true;
+            return item.status === 2;
           },
         },
       ],
     },
   ];
-  list = [{ id: 1, name: 'aaa', status: 1 }, { id: 2, name: 'aaa', status: 1 }];
+  list = [];
 
   statusSelected: { Text: any; Value: any }[] = deepCopy(initialStatusSelected);
 
@@ -113,6 +114,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
       if (!x) {
         return;
       }
+      this.list = x.data;
       this.notifySrv.success();
     });
   }
