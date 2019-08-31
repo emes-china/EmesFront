@@ -7,6 +7,7 @@ import {
   ExceptionOutline,
   InfoOutline,
   LinkOutline,
+  PlusOutline,
   ProfileOutline,
 } from '@ant-design/icons-angular/icons';
 
@@ -18,4 +19,5 @@ export const ICONS = [
   LinkOutline,
   CloseCircleOutline,
   CheckCircleOutline,
+  PlusOutline,
 ];

@@ -1,9 +1,11 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { STColumn, STColumnButton, STData, STPage } from '@delon/abc';
 import { ArrayService, deepCopy } from '@delon/util';
 import { ModalService, Mode, StatusColumnBadge } from '@shared';
 import { BaseComponent } from '@shared/components/base.component';
+import { TreeHelper } from '@shared/utils/nz-tree.helper';
 import { IUserService } from '@System/api/iUser.service';
+import { NzFormatEmitEvent, NzTreeComponent } from 'ng-zorro-antd';
 import { UserEditComponent } from '../user-edit/user-edit.component';
 
 @Component({
@@ -68,10 +70,12 @@ export class UserListComponent extends BaseComponent implements OnInit {
     total: true,
   };
 
+  @ViewChild('tree', { static: false }) tree: NzTreeComponent;
   searchParams = { Where: { KeyWord: null }, PageIndex: 1, PageSize: 30 };
   list = [];
   nodes = [];
   selectNodes = [];
+  expandedKeys = [];
 
   initialUser = {
     parentId: '',
@@ -119,7 +123,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
     });
   }
 
-  getSubItem() {
+  getSubItem(item: any) {
     // this.userSrv
     //   .subitem({ request: { id: this.org.id, name: this.keyword, pageIndex: 0, pageSize: 10 } })
     //   .subscribe((x: any) => {
@@ -145,9 +149,8 @@ export class UserListComponent extends BaseComponent implements OnInit {
     });
   }
 
-  select($event: any) {
-    // this.user = $event.node.origin;
-    this.getSubItem();
+  select(e: any) {
+    this.getSubItem(e.node.origin);
   }
 
   edit(record: any) {
@@ -171,6 +174,17 @@ export class UserListComponent extends BaseComponent implements OnInit {
       });
     } else {
       this.notifySrv.info('请选择需要删除的记录！');
+    }
+  }
+
+  async expandChange(e: NzFormatEmitEvent) {
+    this.expandedKeys = TreeHelper.nzTreeGetExpanded(this.tree);
+    if (e.eventName === 'expand') {
+      if (e.node.getChildren().length === 0 && e.node.isExpanded) {
+        if (e.node.origin.extraData && e.node.origin.extraData.Id) {
+          // await this.refreshMenuChildren(e);
+        }
+      }
     }
   }
 }

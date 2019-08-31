@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-
-import { RoleRoutingModule } from './role-routing.module';
-import { RoleListComponent } from './role-list/role-list.component';
 import { SharedModule } from '@shared';
+import { RoleDrawerComponent } from './role-drawer/role-drawer.component';
 import { RoleEditComponent } from './role-edit/role-edit.component';
+import { RoleListComponent } from './role-list/role-list.component';
+import { RoleRoutingModule } from './role-routing.module';
 
 @NgModule({
-  declarations: [RoleListComponent, RoleEditComponent],
+  declarations: [RoleListComponent, RoleEditComponent, RoleDrawerComponent],
   imports: [SharedModule, RoleRoutingModule],
-  entryComponents: [RoleEditComponent],
+  entryComponents: [RoleEditComponent, RoleDrawerComponent],
 })
 export class RoleModule {}

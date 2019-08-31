@@ -7,6 +7,6 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 @NgModule({
   declarations: [UserListComponent, UserEditComponent],
   imports: [SharedModule, UserRoutingModule],
-  entryComponents: [],
+  entryComponents: [UserEditComponent],
 })
 export class UserModule {}

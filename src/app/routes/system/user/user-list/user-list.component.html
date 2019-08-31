@@ -10,6 +10,15 @@
       />
     </nz-input-group>
     <ng-template #suffixIconButton>
+      <i
+        nz-icon
+        nz-tooltip
+        class="ant-input-clear-icon zc-clear-small"
+        nzTheme="fill"
+        nzType="close-circle"
+        *ngIf="searchParams.Where.KeyWord"
+        (click)="searchParams.Where.KeyWord = null"
+      ></i>
       <button nz-button nzType="primary" nzSize="small" nzSearch (click)="refresh()">
         <i nz-icon nzType="search"></i>
       </button>
@@ -35,8 +44,8 @@
   </div>
 </div>
 
-<div nz-row nzGutter="24">
-  <div nz-col nzMd="24" nzLg="7">
+<div nz-row nzGutter="16">
+  <div nz-col nzMd="24" nzLg="7" class="zc-scrollbar">
     <nz-card [nzBordered]="false" nzSize="small" [nzTitle]="titleTpl">
       <ng-template #titleTpl>
         <a (click)="all()">
@@ -45,9 +54,12 @@
       </ng-template>
 
       <nz-tree
+        #tree
         [nzData]="nodes"
         nzExpandAll
         nzBlockNode
+        nzAsyncData="true"
+        (nzExpandChange)="expandChange($event)"
         (nzClick)="select($event)"
         class="mhb"
         [nzTreeTemplate]="nzTreeTemplate"

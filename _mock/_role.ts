@@ -25,15 +25,14 @@ let entity = [
 ];
 
 export const Role = {
-  'POST /api/role/query': (req: MockRequest) =>
-    JSON.parse(
-      JSON.stringify({
-        entity,
-        isSucceed: true,
-        message: '',
-        statusCode: 200,
-      }),
-    ),
+  'POST /api/role/query': (req: MockRequest) => {
+    return {
+      entity,
+      isSucceed: true,
+      message: '',
+      statusCode: 200,
+    };
+  },
 
   'POST /api/role/create': (req: MockRequest) => {
     const role = deepCopy(req.body.request);

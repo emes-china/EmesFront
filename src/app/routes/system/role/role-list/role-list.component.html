@@ -10,6 +10,15 @@
       />
     </nz-input-group>
     <ng-template #suffixIconButton>
+      <i
+        nz-icon
+        nz-tooltip
+        class="ant-input-clear-icon zc-clear-small"
+        nzTheme="fill"
+        nzType="close-circle"
+        *ngIf="searchParams.Where.KeyWord"
+        (click)="searchParams.Where.KeyWord = null"
+      ></i>
       <button nz-button nzType="primary" nzSize="small" nzSearch (click)="refresh()">
         <i nz-icon nzType="search"></i>
       </button>
