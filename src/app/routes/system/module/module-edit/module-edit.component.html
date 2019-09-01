@@ -1,0 +1,31 @@
+<form nz-form #f="ngForm" se-container labelWidth="120" size="compact" gutter="24">
+  <se label="上级菜单" col="1">
+    <nz-tree-select
+      [nzNodes]="extra"
+      [(ngModel)]="record.parentId"
+      name="record_ParentId"
+      nzShowSearch
+      nzPlaceHolder="请选择"
+    >
+    </nz-tree-select>
+  </se>
+
+  <se label="菜单名称" required col="1">
+    <input type="text" nz-input [(ngModel)]="record.name" name="record_name" required />
+  </se>
+  <se label="权限编码" required col="1">
+    <input type="text" nz-input [(ngModel)]="record.aclCode" name="record_aclCode" required />
+  </se>
+  <se label="菜单编码" required col="1">
+    <input type="text" nz-input [(ngModel)]="record.code" name="record_code" required />
+  </se>
+  <se label="Url" col="1">
+    <input type="text" nz-input [(ngModel)]="record.url" name="record_url" />
+  </se>
+  <se label="图标" col="1">
+    <input type="text" nz-input [(ngModel)]="record.icon" name="record_icon" />
+  </se>
+  <se label="是否导航菜单" col="1">
+    <label nz-checkbox [(ngModel)]="record.group" name="record_group"></label>
+  </se>
+</form>

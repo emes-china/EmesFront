@@ -8,9 +8,8 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdatePostDto } from './updatePostDto';
 
 
-export interface Request22 { 
-    request?: UpdatePostDto;
+export interface Id7 { 
+    id?: string;
 }

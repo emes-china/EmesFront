@@ -23,11 +23,11 @@ import { CustomHttpUrlEncodingCodec } from "../encoder";
 
 import { HttpResultMessageIEnumerableRoleDto } from '../model/httpResultMessageIEnumerableRoleDto';
 import { HttpResultMessageRoleDto } from '../model/httpResultMessageRoleDto';
-import { Id5 } from '../model/id5';
-import { Request25 } from '../model/request25';
-import { Request26 } from '../model/request26';
-import { Request27 } from '../model/request27';
-import { Request28 } from '../model/request28';
+import { Id6 } from '../model/id6';
+import { Request29 } from '../model/request29';
+import { Request30 } from '../model/request30';
+import { Request31 } from '../model/request31';
+import { Request32 } from '../model/request32';
  
 
 
@@ -48,10 +48,10 @@ export class IRoleService {
 * @param servicekey 
 * @param authorization 
      */
-    public create(request: Request25, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageRoleDto>;
-    public create(request: Request25, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageRoleDto>>;
-    public create(request: Request25, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageRoleDto>>;
-    public create(request: Request25, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public create(request: Request29, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageRoleDto>;
+    public create(request: Request29, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageRoleDto>>;
+    public create(request: Request29, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageRoleDto>>;
+    public create(request: Request29, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling create.');
@@ -84,10 +84,10 @@ export class IRoleService {
 * @param servicekey 
 * @param authorization 
      */
-    public delete(request: Request26, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageRoleDto>;
-    public delete(request: Request26, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageRoleDto>>;
-    public delete(request: Request26, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageRoleDto>>;
-    public delete(request: Request26, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public delete(request: Request30, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageRoleDto>;
+    public delete(request: Request30, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageRoleDto>>;
+    public delete(request: Request30, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageRoleDto>>;
+    public delete(request: Request30, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling delete.');
@@ -120,10 +120,10 @@ export class IRoleService {
 * @param servicekey 
 * @param authorization 
      */
-    public getbyid(id: Id5, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageRoleDto>;
-    public getbyid(id: Id5, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageRoleDto>>;
-    public getbyid(id: Id5, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageRoleDto>>;
-    public getbyid(id: Id5, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public getbyid(id: Id6, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageRoleDto>;
+    public getbyid(id: Id6, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageRoleDto>>;
+    public getbyid(id: Id6, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageRoleDto>>;
+    public getbyid(id: Id6, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getbyid.');
@@ -156,10 +156,10 @@ export class IRoleService {
 * @param servicekey 
 * @param authorization 
      */
-    public query(request: Request27, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageIEnumerableRoleDto>;
-    public query(request: Request27, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageIEnumerableRoleDto>>;
-    public query(request: Request27, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageIEnumerableRoleDto>>;
-    public query(request: Request27, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public query(request: Request31, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageIEnumerableRoleDto>;
+    public query(request: Request31, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageIEnumerableRoleDto>>;
+    public query(request: Request31, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageIEnumerableRoleDto>>;
+    public query(request: Request31, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling query.');
@@ -192,10 +192,10 @@ export class IRoleService {
 * @param servicekey 
 * @param authorization 
      */
-    public update(request: Request28, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageRoleDto>;
-    public update(request: Request28, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageRoleDto>>;
-    public update(request: Request28, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageRoleDto>>;
-    public update(request: Request28, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public update(request: Request32, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageRoleDto>;
+    public update(request: Request32, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageRoleDto>>;
+    public update(request: Request32, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageRoleDto>>;
+    public update(request: Request32, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling update.');

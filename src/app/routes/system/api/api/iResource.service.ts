@@ -24,13 +24,13 @@ import { CustomHttpUrlEncodingCodec } from "../encoder";
 import { HttpResultMessageIEnumerableResourceDto } from '../model/httpResultMessageIEnumerableResourceDto';
 import { HttpResultMessageIPagedListResourceDto } from '../model/httpResultMessageIPagedListResourceDto';
 import { HttpResultMessageResourceDto } from '../model/httpResultMessageResourceDto';
-import { Id4 } from '../model/id4';
-import { Request19 } from '../model/request19';
-import { Request20 } from '../model/request20';
-import { Request21 } from '../model/request21';
-import { Request22 } from '../model/request22';
+import { Id5 } from '../model/id5';
 import { Request23 } from '../model/request23';
 import { Request24 } from '../model/request24';
+import { Request25 } from '../model/request25';
+import { Request26 } from '../model/request26';
+import { Request27 } from '../model/request27';
+import { Request28 } from '../model/request28';
  
 
 
@@ -51,10 +51,10 @@ export class IResourceService {
 * @param servicekey 
 * @param authorization 
      */
-    public changestatus(request: Request19, servicekey?: any, authorization?: any, observe?: 'body'): Observable<any>;
-    public changestatus(request: Request19, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<any>>;
-    public changestatus(request: Request19, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<any>>;
-    public changestatus(request: Request19, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public changestatus(request: Request23, servicekey?: any, authorization?: any, observe?: 'body'): Observable<any>;
+    public changestatus(request: Request23, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<any>>;
+    public changestatus(request: Request23, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<any>>;
+    public changestatus(request: Request23, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling changestatus.');
@@ -87,10 +87,10 @@ export class IResourceService {
 * @param servicekey 
 * @param authorization 
      */
-    public create(request: Request20, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageResourceDto>;
-    public create(request: Request20, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageResourceDto>>;
-    public create(request: Request20, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageResourceDto>>;
-    public create(request: Request20, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public create(request: Request24, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageResourceDto>;
+    public create(request: Request24, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageResourceDto>>;
+    public create(request: Request24, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageResourceDto>>;
+    public create(request: Request24, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling create.');
@@ -123,10 +123,10 @@ export class IResourceService {
 * @param servicekey 
 * @param authorization 
      */
-    public delete(request: Request21, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageResourceDto>;
-    public delete(request: Request21, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageResourceDto>>;
-    public delete(request: Request21, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageResourceDto>>;
-    public delete(request: Request21, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public delete(request: Request25, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageResourceDto>;
+    public delete(request: Request25, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageResourceDto>>;
+    public delete(request: Request25, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageResourceDto>>;
+    public delete(request: Request25, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling delete.');
@@ -159,10 +159,10 @@ export class IResourceService {
 * @param servicekey 
 * @param authorization 
      */
-    public getbyid(id: Id4, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageResourceDto>;
-    public getbyid(id: Id4, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageResourceDto>>;
-    public getbyid(id: Id4, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageResourceDto>>;
-    public getbyid(id: Id4, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public getbyid(id: Id5, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageResourceDto>;
+    public getbyid(id: Id5, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageResourceDto>>;
+    public getbyid(id: Id5, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageResourceDto>>;
+    public getbyid(id: Id5, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getbyid.');
@@ -195,10 +195,10 @@ export class IResourceService {
 * @param servicekey 
 * @param authorization 
      */
-    public query(request: Request22, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageIEnumerableResourceDto>;
-    public query(request: Request22, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageIEnumerableResourceDto>>;
-    public query(request: Request22, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageIEnumerableResourceDto>>;
-    public query(request: Request22, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public query(request: Request26, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageIEnumerableResourceDto>;
+    public query(request: Request26, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageIEnumerableResourceDto>>;
+    public query(request: Request26, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageIEnumerableResourceDto>>;
+    public query(request: Request26, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling query.');
@@ -231,10 +231,10 @@ export class IResourceService {
 * @param servicekey 
 * @param authorization 
      */
-    public subitem(request: Request23, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageIPagedListResourceDto>;
-    public subitem(request: Request23, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageIPagedListResourceDto>>;
-    public subitem(request: Request23, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageIPagedListResourceDto>>;
-    public subitem(request: Request23, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public subitem(request: Request27, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageIPagedListResourceDto>;
+    public subitem(request: Request27, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageIPagedListResourceDto>>;
+    public subitem(request: Request27, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageIPagedListResourceDto>>;
+    public subitem(request: Request27, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling subitem.');
@@ -267,10 +267,10 @@ export class IResourceService {
 * @param servicekey 
 * @param authorization 
      */
-    public update(request: Request24, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageResourceDto>;
-    public update(request: Request24, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageResourceDto>>;
-    public update(request: Request24, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageResourceDto>>;
-    public update(request: Request24, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public update(request: Request28, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageResourceDto>;
+    public update(request: Request28, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageResourceDto>>;
+    public update(request: Request28, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageResourceDto>>;
+    public update(request: Request28, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling update.');

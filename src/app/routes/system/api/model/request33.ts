@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeleteUserDto } from './deleteUserDto';
+import { TestDto } from './testDto';
 
 
 export interface Request33 { 
-    request?: DeleteUserDto;
+    request?: TestDto;
 }

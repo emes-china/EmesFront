@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { QueryRoleDto } from './queryRoleDto';
+import { SubResourceDto } from './subResourceDto';
 
 
 export interface Request27 { 
-    request?: QueryRoleDto;
+    request?: SubResourceDto;
 }

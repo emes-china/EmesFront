@@ -12,3 +12,4 @@ export * from './service/app.service';
 export * from './service/array.service';
 export * from './service/modal.service';
 export * from './model/mode';
+export * from './model/status-type';

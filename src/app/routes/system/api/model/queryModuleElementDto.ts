@@ -8,9 +8,12 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdatePostDto } from './updatePostDto';
 
 
-export interface Request22 { 
-    request?: UpdatePostDto;
+/**
+ * 查询模块元素Dto  Desc:查询模块领域模型Dto
+ */
+export interface QueryModuleElementDto { 
+    moduleId?: string;
+    name?: string;
 }

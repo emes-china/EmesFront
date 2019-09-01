@@ -19,21 +19,32 @@ export interface CreateModuleDto {
      */
     parentId?: string;
     name?: string;
-    domId?: string;
-    /**
-     * 样式
-     */
-    style?: string;
-    /**
-     * 图标
-     */
-    icon?: string;
     /**
      * 排序号
      */
     sortNo?: number;
     /**
-     * 备注
+     * 节点语义ID
      */
-    remark?: string;
+    cascadeId?: string;
+    /**
+     * 权限编码
+     */
+    aclCode?: number;
+    /**
+     * 模块标记
+     */
+    code?: string;
+    /**
+     * 地址
+     */
+    url?: string;
+    /**
+     * 图标
+     */
+    icon?: string;
+    /**
+     * 分组
+     */
+    group?: boolean;
 }

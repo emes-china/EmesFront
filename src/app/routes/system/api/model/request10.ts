@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateOrganizationDto } from './createOrganizationDto';
+import { QueryModuleElementDto } from './queryModuleElementDto';
 
 
 export interface Request10 { 
-    request?: CreateOrganizationDto;
+    request?: QueryModuleElementDto;
 }

@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdatePostDto } from './updatePostDto';
+import { UpdateOrganizationDto } from './updateOrganizationDto';
 
 
 export interface Request18 { 
-    request?: UpdatePostDto;
+    request?: UpdateOrganizationDto;
 }

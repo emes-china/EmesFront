@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdatePostDto } from './updatePostDto';
+import { CreateUserDto } from './createUserDto';
 
 
-export interface Request22 { 
-    request?: UpdatePostDto;
+export interface Request36 { 
+    request?: CreateUserDto;
 }

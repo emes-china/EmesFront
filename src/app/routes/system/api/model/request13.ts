@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { SubOrganizationDto } from './subOrganizationDto';
+import { PatchOrganizationDto } from './patchOrganizationDto';
 
 
 export interface Request13 { 
-    request?: SubOrganizationDto;
+    request?: PatchOrganizationDto;
 }

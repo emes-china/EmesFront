@@ -8,9 +8,12 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdatePostDto } from './updatePostDto';
+import { ModuleElementDto } from './moduleElementDto';
 
 
-export interface Request22 { 
-    request?: UpdatePostDto;
+export interface HttpResultMessageModuleElementDto { 
+    entity?: ModuleElementDto;
+    isSucceed?: boolean;
+    message?: string;
+    statusCode?: number;
 }

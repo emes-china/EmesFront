@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateUserDto } from './createUserDto';
+import { UpdateRoleDto } from './updateRoleDto';
 
 
 export interface Request32 { 
-    request?: CreateUserDto;
+    request?: UpdateRoleDto;
 }

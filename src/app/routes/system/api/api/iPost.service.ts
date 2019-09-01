@@ -23,11 +23,11 @@ import { CustomHttpUrlEncodingCodec } from "../encoder";
 
 import { HttpResultMessageIEnumerablePostDto } from '../model/httpResultMessageIEnumerablePostDto';
 import { HttpResultMessagePostDto } from '../model/httpResultMessagePostDto';
-import { Id3 } from '../model/id3';
-import { Request15 } from '../model/request15';
-import { Request16 } from '../model/request16';
-import { Request17 } from '../model/request17';
-import { Request18 } from '../model/request18';
+import { Id4 } from '../model/id4';
+import { Request19 } from '../model/request19';
+import { Request20 } from '../model/request20';
+import { Request21 } from '../model/request21';
+import { Request22 } from '../model/request22';
  
 
 
@@ -48,10 +48,10 @@ export class IPostService {
 * @param servicekey 
 * @param authorization 
      */
-    public create(request: Request15, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessagePostDto>;
-    public create(request: Request15, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessagePostDto>>;
-    public create(request: Request15, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessagePostDto>>;
-    public create(request: Request15, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public create(request: Request19, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessagePostDto>;
+    public create(request: Request19, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessagePostDto>>;
+    public create(request: Request19, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessagePostDto>>;
+    public create(request: Request19, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling create.');
@@ -84,10 +84,10 @@ export class IPostService {
 * @param servicekey 
 * @param authorization 
      */
-    public delete(request: Request16, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessagePostDto>;
-    public delete(request: Request16, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessagePostDto>>;
-    public delete(request: Request16, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessagePostDto>>;
-    public delete(request: Request16, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public delete(request: Request20, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessagePostDto>;
+    public delete(request: Request20, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessagePostDto>>;
+    public delete(request: Request20, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessagePostDto>>;
+    public delete(request: Request20, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling delete.');
@@ -120,10 +120,10 @@ export class IPostService {
 * @param servicekey 
 * @param authorization 
      */
-    public getbyid(id: Id3, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessagePostDto>;
-    public getbyid(id: Id3, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessagePostDto>>;
-    public getbyid(id: Id3, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessagePostDto>>;
-    public getbyid(id: Id3, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public getbyid(id: Id4, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessagePostDto>;
+    public getbyid(id: Id4, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessagePostDto>>;
+    public getbyid(id: Id4, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessagePostDto>>;
+    public getbyid(id: Id4, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getbyid.');
@@ -156,10 +156,10 @@ export class IPostService {
 * @param servicekey 
 * @param authorization 
      */
-    public query(request: Request17, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageIEnumerablePostDto>;
-    public query(request: Request17, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageIEnumerablePostDto>>;
-    public query(request: Request17, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageIEnumerablePostDto>>;
-    public query(request: Request17, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public query(request: Request21, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageIEnumerablePostDto>;
+    public query(request: Request21, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageIEnumerablePostDto>>;
+    public query(request: Request21, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageIEnumerablePostDto>>;
+    public query(request: Request21, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling query.');
@@ -192,10 +192,10 @@ export class IPostService {
 * @param servicekey 
 * @param authorization 
      */
-    public update(request: Request18, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessagePostDto>;
-    public update(request: Request18, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessagePostDto>>;
-    public update(request: Request18, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessagePostDto>>;
-    public update(request: Request18, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public update(request: Request22, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessagePostDto>;
+    public update(request: Request22, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessagePostDto>>;
+    public update(request: Request22, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessagePostDto>>;
+    public update(request: Request22, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling update.');
