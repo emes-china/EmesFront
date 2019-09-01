@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdateUserDto } from './updateUserDto';
+import { QueryUserDto } from './queryUserDto';
 
 
 export interface Request34 { 
-    request?: UpdateUserDto;
+    request?: QueryUserDto;
 }

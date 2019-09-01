@@ -8,9 +8,12 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateUserDto } from './createUserDto';
+import { StockUserDto } from './stockUserDto';
 
 
-export interface Request32 { 
-    request?: CreateUserDto;
+export interface HttpResultMessageIEnumerableStockUserDto { 
+    entity?: Array<StockUserDto>;
+    isSucceed?: boolean;
+    message?: string;
+    statusCode?: number;
 }

@@ -1,13 +1,7 @@
 <div class="tool-bar">
   <div>
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" nzSize="small">
-      <input
-        type="text"
-        nz-input
-        placeholder="关键字"
-        [(ngModel)]="searchParams.Where.KeyWord"
-        (keyup.enter)="refresh()"
-      />
+      <input type="text" nz-input placeholder="关键字" [(ngModel)]="keyword" (keyup.enter)="refresh()" />
     </nz-input-group>
     <ng-template #suffixIconButton>
       <i
@@ -16,8 +10,8 @@
         class="ant-input-clear-icon zc-clear-small"
         nzTheme="fill"
         nzType="close-circle"
-        *ngIf="searchParams.Where.KeyWord"
-        (click)="searchParams.Where.KeyWord = null"
+        *ngIf="keyword"
+        (click)="keyword = ''"
       ></i>
       <button nz-button nzType="primary" nzSize="small" nzSearch (click)="refresh()">
         <i nz-icon nzType="search"></i>

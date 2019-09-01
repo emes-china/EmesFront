@@ -166,13 +166,13 @@ export class RoleDrawerComponent {
    * 下一步
    */
   nextStep() {
+    if (this.step === 3) {
+      this.ref.close(true);
+      return;
+    }
     if (this.step < 3) {
       this.step += 1;
       this.isShowLastBtn = true;
-    }
-
-    if (this.step === 3) {
-      this.ref.close(true);
     }
   }
 

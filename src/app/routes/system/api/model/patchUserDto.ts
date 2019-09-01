@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateUserDto } from './createUserDto';
 
 
-export interface Request32 { 
-    request?: CreateUserDto;
+export interface PatchUserDto { 
+    status?: number;
+    id?: string;
 }

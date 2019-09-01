@@ -7,6 +7,7 @@ import { TreeHelper } from '@shared/utils/nz-tree.helper';
 import { IUserService } from '@System/api/iUser.service';
 import { NzFormatEmitEvent, NzTreeComponent } from 'ng-zorro-antd';
 import { UserEditComponent } from '../user-edit/user-edit.component';
+import { IOrganizationService } from '@System';
 
 @Component({
   selector: 'zc-user-list',
@@ -15,10 +16,10 @@ import { UserEditComponent } from '../user-edit/user-edit.component';
 })
 export class UserListComponent extends BaseComponent implements OnInit {
   columns: STColumn[] = [
-    { title: '账号', index: 'loginName' },
+    { title: '账号', index: 'account' },
     { title: '姓名', index: 'name' },
     { title: '所属部门', index: 'orgName' },
-    { title: '状态', index: 'badge', type: 'badge', badge: StatusColumnBadge },
+    { title: '状态', index: 'status', type: 'badge', badge: StatusColumnBadge },
     {
       title: '操作',
       buttons: [
@@ -26,33 +27,46 @@ export class UserListComponent extends BaseComponent implements OnInit {
           text: '编辑',
           icon: 'edit',
           type: 'link',
-          click: (_record, modal) => {},
+          click: (_record, modal) => {
+            this.edit(_record);
+          },
         },
         {
           text: '禁用',
           icon: 'close-circle',
           type: 'del',
           popTitle: '确认禁用吗？',
-          click: (_record, modal) => {},
+          click: (_record, modal) => {
+            this.userSrv.changestatus({ request: { status: 2, id: _record.id } }).subscribe(x => {
+              this.notifySrv.success();
+              this.getSubItem();
+            });
+          },
           iif: (item: STData, btn: STColumnButton, column: STColumn) => {
-            return true;
+            return item.status === 1;
           },
         },
         {
           text: '启用',
           icon: 'check-circle',
           type: 'del',
-          popTitle: '确认禁用吗？',
-          click: (_record, modal) => {},
+          popTitle: '确认启用吗？',
+          click: (_record, modal) => {
+            this.userSrv.changestatus({ request: { status: 1, id: _record.id } }).subscribe(x => {
+              this.notifySrv.success();
+              this.getSubItem();
+            });
+          },
           iif: (item: STData, btn: STColumnButton, column: STColumn) => {
-            return false;
+            return item.status === 2;
           },
         },
         {
-          icon: '删除',
+          text: '删除',
+          icon: 'delete',
           type: 'del',
           click: (record, _modal, comp) => {
-            this.delete(_modal);
+            this.delete(record);
           },
           iif: (item: STData, btn: STColumnButton, column: STColumn) => {
             return true;
@@ -62,34 +76,32 @@ export class UserListComponent extends BaseComponent implements OnInit {
     },
   ];
 
-  page: STPage = {
-    show: true,
-    front: true, // 后端分页 改为 false
-    showSize: true,
-    showQuickJumper: true,
-    total: true,
+  initialOrg = {
+    parentId: undefined,
+    name: '',
+    status: 1,
   };
-
+  org;
   @ViewChild('tree', { static: false }) tree: NzTreeComponent;
-  searchParams = { Where: { KeyWord: null }, PageIndex: 1, PageSize: 30 };
+  keyword;
   list = [];
   nodes = [];
   selectNodes = [];
   expandedKeys = [];
 
   initialUser = {
-    parentId: '',
-    loginName: '',
+    account: '',
+    password: '',
     name: '',
-    orgName: '',
-    orgId: [],
+    sex: 1,
+    orgId: undefined,
     status: 1,
-    summary: '',
   };
 
   constructor(
     injector: Injector,
     private arrSrv: ArrayService,
+    private orgSrv: IOrganizationService,
     private userSrv: IUserService,
     private modalSrv: ModalService,
   ) {
@@ -97,20 +109,23 @@ export class UserListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getList();
+    this.org = this.initialOrg;
+    this.refresh();
   }
 
   refresh() {
     this.getList();
+    this.getSubItem();
   }
 
   all() {
-    this.searchParams.Where.KeyWord = '';
-    this.getList();
+    this.keyword = '';
+    this.org = this.initialOrg;
+    this.refresh();
   }
 
   getList() {
-    this.userSrv.query({ request: { name: '' } }).subscribe((x: any) => {
+    this.orgSrv.query({ request: { name: '' } }).subscribe((x: any) => {
       if (!x) return;
       this.nodes = this.arrSrv.arrToTreeNode(x, {
         parentIdMapName: 'parentId',
@@ -123,12 +138,11 @@ export class UserListComponent extends BaseComponent implements OnInit {
     });
   }
 
-  getSubItem(item: any) {
-    // this.userSrv
-    //   .subitem({ request: { id: this.org.id, name: this.keyword, pageIndex: 0, pageSize: 10 } })
-    //   .subscribe((x: any) => {
-    //     if (!x) return;
-    //   });
+  getSubItem() {
+    this.userSrv.query({ request: { name: this.keyword, orgId: this.org.id } }).subscribe((x: any) => {
+      if (!x) return;
+      this.list = x;
+    });
   }
 
   add() {
@@ -139,18 +153,9 @@ export class UserListComponent extends BaseComponent implements OnInit {
     });
   }
 
-  addChild(node: any) {
-    const record = deepCopy(this.initialUser);
-    record.parentId = node.node.id;
-    this.modalSrv.add(UserEditComponent, { record, extra: this.selectNodes }).subscribe(x => {
-      if (x) {
-        this.refresh();
-      }
-    });
-  }
-
   select(e: any) {
-    this.getSubItem(e.node.origin);
+    this.org = e.node.origin;
+    this.getSubItem();
   }
 
   edit(record: any) {
@@ -170,7 +175,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
     if (record.id !== undefined) {
       this.userSrv.delete({ request: { id: record.id } }).subscribe(x => {
         this.notifySrv.success();
-        this.getList();
+        this.getSubItem();
       });
     } else {
       this.notifySrv.info('请选择需要删除的记录！');

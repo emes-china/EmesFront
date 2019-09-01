@@ -29,10 +29,17 @@ export class OrganizationEditComponent extends BaseModalComponent {
   }
 
   ok() {
+    for (const i in this.f.controls) {
+      this.f.controls[i].markAsDirty();
+      this.f.controls[i].updateValueAndValidity();
+    }
+    if (this.f.invalid) {
+      return;
+    }
     let srv;
-    if (this.mode == Mode.Add) {
+    if (this.mode === Mode.Add) {
       srv = this.orgSrv.create({ request: this.record });
-    } else if (this.mode == Mode.Edit) {
+    } else if (this.mode === Mode.Edit) {
       srv = this.orgSrv.update({ request: this.record });
     }
     srv.subscribe(x => {

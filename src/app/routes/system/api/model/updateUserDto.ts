@@ -34,5 +34,6 @@ export interface UpdateUserDto {
      * 用户状态
      */
     status?: number;
+    orgId?: string;
     id?: string;
 }

@@ -15,4 +15,5 @@
  */
 export interface QueryUserDto { 
     name?: string;
+    orgId?: string;
 }

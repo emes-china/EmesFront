@@ -1,4 +1,5 @@
 export enum StatusType {
+  未知 = 0,
   正常 = 1,
   停用 = 2,
 }

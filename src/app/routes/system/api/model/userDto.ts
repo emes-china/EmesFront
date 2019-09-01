@@ -34,5 +34,7 @@ export interface UserDto {
      * 用户状态
      */
     status?: number;
+    orgId?: string;
+    orgName?: string;
     id?: string;
 }
