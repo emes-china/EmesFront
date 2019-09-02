@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IModuleService } from '@System';
 import { BaseComponent, ModalService, ArrayService } from '@shared';
-import { STColumn } from '@delon/abc';
+import { STColumn, STChange } from '@delon/abc';
 import { ModuleEditComponent } from '../module-edit/module-edit.component';
 import { ModuleElementEditComponent } from '../module-element-edit/module-element-edit.component';
 export interface TreeNodeInterface {
@@ -63,7 +63,7 @@ export class ModuleListComponent extends BaseComponent implements OnInit {
   moduleElement;
   initialModuleElement = {
     name: '',
-    sortNo: 0,
+    sort: 0,
     moduleId: '',
     aclCode: '',
     script: '',
@@ -73,6 +73,7 @@ export class ModuleListComponent extends BaseComponent implements OnInit {
 
   keyword = '';
   columns: STColumn[] = [
+    { title: '--', index: 'id', type: 'radio' },
     { title: '名称', index: 'name' },
     { title: '权限编码', index: 'aclCode' },
     { title: '调用脚本', index: 'script' },
@@ -120,7 +121,7 @@ export class ModuleListComponent extends BaseComponent implements OnInit {
   }
 
   getSubItem() {
-    this.moduleSrv.queryelement({ request: { id: this.module.id, name: this.keyword } }).subscribe((x: any) => {
+    this.moduleSrv.queryelement({ request: { moduleId: this.module.id, name: this.keyword } }).subscribe((x: any) => {
       if (!x) return;
       this.list = x;
     });
@@ -139,8 +140,8 @@ export class ModuleListComponent extends BaseComponent implements OnInit {
   }
 
   delete($event) {
-    if ($event.id !== undefined) {
-      this.moduleSrv.delete({ request: { id: $event.id } }).subscribe(x => {
+    if (this.module.id !== undefined) {
+      this.moduleSrv.delete({ request: { id: this.module.id } }).subscribe(x => {
         this.notifySrv.success();
         this.getList();
         this.getSubItem();
@@ -162,7 +163,16 @@ export class ModuleListComponent extends BaseComponent implements OnInit {
     }
   }
 
+  change(ret: STChange) {
+    if (ret.type === 'radio') {
+      this.moduleElement = ret.radio;
+    }
+  }
+
   addElement($event) {
+    if (this.module) {
+      this.initialModuleElement.moduleId = this.module.id;
+    }
     this.modalSrv
       .add(ModuleElementEditComponent, { record: this.initialModuleElement, extra: this.selectNodes })
       .subscribe(x => {
@@ -187,8 +197,8 @@ export class ModuleListComponent extends BaseComponent implements OnInit {
   }
 
   deleteElement($event) {
-    if ($event.id !== undefined) {
-      this.moduleSrv.deleteelement({ request: { id: $event.id } }).subscribe(x => {
+    if (this.moduleElement.id !== undefined) {
+      this.moduleSrv.deleteelement({ request: { id: this.moduleElement.id } }).subscribe(x => {
         this.notifySrv.success();
         this.getList();
         this.getSubItem();
@@ -217,14 +227,14 @@ export class ModuleListComponent extends BaseComponent implements OnInit {
     const stack: any[] = [];
     const array: any[] = [];
     const hashMap = {};
-    stack.push({ ...root, level: 0, expand: false });
+    stack.push({ ...root, level: 0, expand: true });
 
     while (stack.length !== 0) {
       const node = stack.pop();
       this.visitNode(node, hashMap, array);
       if (node.children) {
         for (let i = node.children.length - 1; i >= 0; i--) {
-          stack.push({ ...node.children[i], level: node.level + 1, expand: false, parent: node });
+          stack.push({ ...node.children[i], level: node.level + 1, expand: true, parent: node });
         }
       }
     }

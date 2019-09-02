@@ -66,7 +66,7 @@
     <nz-card [nzBordered]="false" nzSize="small" [nzTitle]="titleTpl">
       <ng-template #titleTpl>
         <a (click)="all()">
-          所有菜单>>
+          所有元素>>
         </a>
       </ng-template>
 
@@ -103,7 +103,7 @@
   </div>
   <div nz-col nzMd="24" nzLg="12">
     <nz-card [nzBordered]="false" nzSize="small">
-      <st #st [data]="list" size="small" [columns]="columns"></st>
+      <st #st [data]="list" size="small" [columns]="columns" (change)="change($event)"></st>
     </nz-card>
   </div>
 </div>

@@ -1,1 +1,35 @@
-<p>module-element-edit works!</p>
+<form nz-form #f="ngForm" se-container labelWidth="120" size="compact" gutter="24">
+  <se label="所属菜单" col="1" required>
+    <nz-tree-select
+      [nzNodes]="extra"
+      [(ngModel)]="record.moduleId"
+      name="record_moduleId"
+      nzShowSearch
+      nzPlaceHolder="请选择"
+      required
+    >
+    </nz-tree-select>
+  </se>
+
+  <se label="元素名称" required col="1">
+    <input type="text" nz-input [(ngModel)]="record.name" name="record_name" required />
+  </se>
+  <se label="权限编码" required col="1">
+    <input type="text" nz-input [(ngModel)]="record.aclCode" name="record_aclCode" required />
+  </se>
+  <se label="调用脚本" col="1">
+    <input type="text" nz-input [(ngModel)]="record.script" name="record_script" />
+  </se>
+  <se label="图标" col="1">
+    <input type="text" nz-input [(ngModel)]="record.icon" name="record_icon" />
+  </se>
+  <se label="排序" col="1">
+    <nz-input-number
+      [(ngModel)]="record.sort"
+      name="record_sort"
+      [nzMin]="0"
+      [nzMax]="99"
+      [nzStep]="1"
+    ></nz-input-number>
+  </se>
+</form>
