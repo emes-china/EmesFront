@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { PatchResourceDto } from './patchResourceDto';
+import { UpdatePostDto } from './updatePostDto';
 
 
 export interface Request23 { 
-    request?: PatchResourceDto;
+    request?: UpdatePostDto;
 }

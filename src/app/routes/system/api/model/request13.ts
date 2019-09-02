@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { PatchOrganizationDto } from './patchOrganizationDto';
+import { UpdateModuleElementDto } from './updateModuleElementDto';
 
 
 export interface Request13 { 
-    request?: PatchOrganizationDto;
+    request?: UpdateModuleElementDto;
 }

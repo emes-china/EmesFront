@@ -8,9 +8,13 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateRoleDto } from './createRoleDto';
 
 
-export interface Request31 { 
-    request?: CreateRoleDto;
+/**
+ * 角色权限Dto  Desc:角色领域模型详情Dto
+ */
+export interface RoleAclDto { 
+    roleId?: string;
+    aclCode?: string;
+    id?: string;
 }

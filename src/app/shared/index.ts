@@ -4,6 +4,7 @@ export * from './components/base.component';
 // Utils
 export * from './utils/yuan';
 export * from './utils/status-col';
+export * from './utils/groupby';
 // Module
 export * from './shared.module';
 

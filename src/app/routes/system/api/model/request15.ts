@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeleteOrganizationDto } from './deleteOrganizationDto';
+import { CreateOrganizationDto } from './createOrganizationDto';
 
 
 export interface Request15 { 
-    request?: DeleteOrganizationDto;
+    request?: CreateOrganizationDto;
 }

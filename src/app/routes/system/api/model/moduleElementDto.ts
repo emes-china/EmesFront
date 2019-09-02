@@ -38,5 +38,6 @@ export interface ModuleElementDto {
      * 功能模块Id
      */
     moduleId?: string;
+    moduleName?: string;
     id?: string;
 }

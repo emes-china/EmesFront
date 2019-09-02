@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeleteRoleDto } from './deleteRoleDto';
+import { AllocateAclDto } from './allocateAclDto';
 
 
 export interface Request30 { 
-    request?: DeleteRoleDto;
+    request?: AllocateAclDto;
 }

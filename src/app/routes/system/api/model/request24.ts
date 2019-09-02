@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateResourceDto } from './createResourceDto';
+import { PatchResourceDto } from './patchResourceDto';
 
 
 export interface Request24 { 
-    request?: CreateResourceDto;
+    request?: PatchResourceDto;
 }

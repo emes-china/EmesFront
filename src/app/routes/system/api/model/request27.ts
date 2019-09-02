@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { SubResourceDto } from './subResourceDto';
+import { QueryResourceDto } from './queryResourceDto';
 
 
 export interface Request27 { 
-    request?: SubResourceDto;
+    request?: QueryResourceDto;
 }

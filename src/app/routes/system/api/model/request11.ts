@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdateModuleDto } from './updateModuleDto';
+import { QueryModuleElementByMIdsDto } from './queryModuleElementByMIdsDto';
 
 
 export interface Request11 { 
-    request?: UpdateModuleDto;
+    request?: QueryModuleElementByMIdsDto;
 }

@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateRoleDto } from './createRoleDto';
+import { DeleteUserDto } from './deleteUserDto';
 
 
-export interface Request31 { 
-    request?: CreateRoleDto;
+export interface Request40 { 
+    request?: DeleteUserDto;
 }

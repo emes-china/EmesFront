@@ -14,12 +14,13 @@
   <!-- 选择可见模块 -->
   <ng-template #moduleTip>
     <nz-tree
-      [nzData]="nodes"
+      #nzTreeComponent
+      [nzData]="extra"
       nzCheckable
       nzMultiple
       [nzCheckedKeys]="defaultCheckedKeys"
-      [nzExpandedKeys]="defaultExpandedKeys"
-      [nzSelectedKeys]="defaultSelectedKeys"
+      [nzSelectedKeys]="defaultCheckedKeys"
+      [nzExpandAll]="true"
       (nzClick)="nzClick($event)"
       (nzCheckBoxChange)="nzCheckBox($event)"
     >
@@ -28,27 +29,22 @@
 
   <!-- 选择可见操作 -->
   <ng-template #operateTip>
-    <nz-list [nzDataSource]="operates" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+    <nz-list [nzDataSource]="meList" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
       <ng-template #item let-item>
         <nz-list-item>
           <nz-list-item-meta [nzTitle]="nzTitle" [nzDescription]="nzDescription">
             <ng-template #nzTitle>
               <h3>
-                {{ item.pname }} > {{ item.name }}
-                <ng-container *ngIf="!item.isSys || item.isField">
-                  (
-                  <ng-container *ngIf="!item.isSys">非系统模块</ng-container>
-                  <ng-container *ngIf="!item.isSys && item.isField">，</ng-container>
-                  <ng-container *ngIf="item.isField">可分配字段</ng-container>
-                  )
-                </ng-container>
+                <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="pClick(item)">
+                  {{ item[0].moduleName }}</label
+                >
               </h3>
             </ng-template>
 
             <ng-template #nzDescription>
               <nz-checkbox-wrapper class="full mt-md">
                 <div nz-row>
-                  <ng-container *ngFor="let chi of item.children">
+                  <ng-container *ngFor="let chi of item">
                     <div nz-col nzSpan="6" class="mb-sm">
                       <label nz-checkbox [(ngModel)]="chi.checked">{{ chi.name }}</label>
                     </div>
@@ -69,16 +65,7 @@
         <nz-list-item>
           <nz-list-item-meta [nzTitle]="nzTitle2" [nzDescription]="nzDescription2">
             <ng-template #nzTitle2>
-              <h3>
-                {{ item.pname }} > {{ item.name }}
-                <ng-container *ngIf="!item.isSys || item.isField">
-                  (
-                  <ng-container *ngIf="!item.isSys">非系统模块</ng-container>
-                  <ng-container *ngIf="!item.isSys && item.isField">，</ng-container>
-                  <ng-container *ngIf="item.isField">可分配字段</ng-container>
-                  )
-                </ng-container>
-              </h3>
+              <h3>{{ item.pname }} > {{ item.name }}</h3>
             </ng-template>
 
             <ng-template #nzDescription2>

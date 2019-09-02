@@ -30,6 +30,7 @@ import { Id2 } from '../model/id2';
 import { Request10 } from '../model/request10';
 import { Request11 } from '../model/request11';
 import { Request12 } from '../model/request12';
+import { Request13 } from '../model/request13';
 import { Request5 } from '../model/request5';
 import { Request6 } from '../model/request6';
 import { Request7 } from '../model/request7';
@@ -265,6 +266,40 @@ export class IModuleService {
     }
 
     /**
+     * 根据Ids获取模块元素
+     * 
+     * @param request 
+* @param servicekey 
+     */
+    public queryelementbymids(request: Request11, servicekey?: any, observe?: 'body'): Observable<HttpResultMessageIEnumerableModuleElementDto>;
+    public queryelementbymids(request: Request11, servicekey?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageIEnumerableModuleElementDto>>;
+    public queryelementbymids(request: Request11, servicekey?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageIEnumerableModuleElementDto>>;
+    public queryelementbymids(request: Request11, servicekey?: any, observe: any = 'body'): Observable<any> {
+
+        if (request === null || request === undefined) {
+            throw new Error('Required parameter request was null or undefined when calling queryelementbymids.');
+        }
+
+        const queryParameters:any = {};
+  
+        if (servicekey !== undefined && servicekey !== null) {
+            queryParameters.servicekey = servicekey;
+        }
+
+
+        return this.http.post<HttpResultMessageIEnumerableModuleElementDto>(`/api/module/queryelementbymids`,
+            request,
+            
+                 queryParameters,
+    
+            {
+               
+                observe,
+            }
+        );
+    }
+
+    /**
      * 查询模块元素列表
      * 
      * @param request 
@@ -343,10 +378,10 @@ export class IModuleService {
 * @param servicekey 
 * @param authorization 
      */
-    public updateelement(request: Request12, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageModuleElementDto>;
-    public updateelement(request: Request12, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageModuleElementDto>>;
-    public updateelement(request: Request12, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageModuleElementDto>>;
-    public updateelement(request: Request12, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public updateelement(request: Request13, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageModuleElementDto>;
+    public updateelement(request: Request13, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageModuleElementDto>>;
+    public updateelement(request: Request13, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageModuleElementDto>>;
+    public updateelement(request: Request13, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling updateelement.');
@@ -379,10 +414,10 @@ export class IModuleService {
 * @param servicekey 
 * @param authorization 
      */
-    public update(request: Request11, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageModuleDto>;
-    public update(request: Request11, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageModuleDto>>;
-    public update(request: Request11, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageModuleDto>>;
-    public update(request: Request11, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
+    public update(request: Request12, servicekey?: any, authorization?: any, observe?: 'body'): Observable<HttpResultMessageModuleDto>;
+    public update(request: Request12, servicekey?: any, authorization?: any, observe?: 'response'): Observable<HttpResponse<HttpResultMessageModuleDto>>;
+    public update(request: Request12, servicekey?: any, authorization?: any, observe?: 'events'): Observable<HttpEvent<HttpResultMessageModuleDto>>;
+    public update(request: Request12, servicekey?: any, authorization?: any, observe: any = 'body'): Observable<any> {
 
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling update.');

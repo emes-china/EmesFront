@@ -88,7 +88,7 @@
                   [(nzExpand)]="item.expand"
                   (nzExpandChange)="collapse(mapOfExpandedData[data.id], item, $event)"
                 >
-                  <label nz-radio [(ngModel)]="item.isCheck">
+                  <label nz-radio [(ngModel)]="item.isCheck" (click)="trClick(item)">
                     {{ item.name }}
                   </label>
                 </td>

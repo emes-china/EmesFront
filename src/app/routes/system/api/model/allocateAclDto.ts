@@ -8,9 +8,12 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateRoleDto } from './createRoleDto';
 
 
-export interface Request31 { 
-    request?: CreateRoleDto;
+/**
+ * 分配acl
+ */
+export interface AllocateAclDto { 
+    roleId?: string;
+    aclCodes?: Array<string>;
 }

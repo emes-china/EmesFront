@@ -1,13 +1,7 @@
 <div class="tool-bar">
   <div>
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" nzSize="small">
-      <input
-        type="text"
-        nz-input
-        placeholder="关键字"
-        [(ngModel)]="searchParams.Where.KeyWord"
-        (keyup.enter)="refresh()"
-      />
+      <input type="text" nz-input placeholder="关键字" [(ngModel)]="keyword" (keyup.enter)="refresh()" />
     </nz-input-group>
     <ng-template #suffixIconButton>
       <i
@@ -16,19 +10,13 @@
         class="ant-input-clear-icon zc-clear-small"
         nzTheme="fill"
         nzType="close-circle"
-        *ngIf="searchParams.Where.KeyWord"
-        (click)="searchParams.Where.KeyWord = null"
+        *ngIf="keyword"
+        (click)="keyword = null"
       ></i>
       <button nz-button nzType="primary" nzSize="small" nzSearch (click)="refresh()">
         <i nz-icon nzType="search"></i>
       </button>
     </ng-template>
-  </div>
-  <div>
-    <button type="button" nz-button nzType="default" nzSize="small" (click)="add()">
-      <i nz-icon nzType="plus" nzTheme="outline"></i>
-      为角色分配模块
-    </button>
   </div>
   <div>
     <button type="button" nz-button nzType="default" nzSize="small" (click)="add()">
@@ -47,15 +35,7 @@
 <div nz-row nzGutter="24">
   <div nz-col nzMd="24" nzLg="24">
     <nz-card [nzBordered]="false" nzSize="small">
-      <st
-        [data]="list"
-        size="small"
-        [columns]="columns"
-        [page]="page"
-        [pi]="searchParams.PageIndex"
-        [ps]="searchParams.PageSize"
-        (change)="stChange($event)"
-      ></st>
+      <st [data]="list" size="small" [columns]="columns"></st>
     </nz-card>
   </div>
 </div>

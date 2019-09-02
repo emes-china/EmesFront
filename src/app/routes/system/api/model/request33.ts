@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { TestDto } from './testDto';
+import { QueryRoleDto } from './queryRoleDto';
 
 
 export interface Request33 { 
-    request?: TestDto;
+    request?: QueryRoleDto;
 }

@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { UpdateModuleElementDto } from './updateModuleElementDto';
+import { UpdateModuleDto } from './updateModuleDto';
 
 
 export interface Request12 { 
-    request?: UpdateModuleElementDto;
+    request?: UpdateModuleDto;
 }

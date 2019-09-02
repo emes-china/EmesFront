@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { QueryUserDto } from './queryUserDto';
+import { PatchUserDto } from './patchUserDto';
 
 
 export interface Request38 { 
-    request?: QueryUserDto;
+    request?: PatchUserDto;
 }

@@ -1,8 +1,8 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { STColumn, STColumnButton, STComponent, STData, STPage } from '@delon/abc';
-import { Mode, StatusColumnBadge, ModalService } from '@shared';
+import { Mode, StatusColumnBadge, ModalService, ArrayService } from '@shared';
 import { BaseComponent } from '@shared/components/base.component';
-import { IRoleService } from '@System';
+import { IRoleService, IModuleService } from '@System';
 import { NzModalService } from 'ng-zorro-antd';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
 import { RoleDrawerComponent } from '../role-drawer/role-drawer.component';
@@ -14,6 +14,7 @@ import { RoleDrawerComponent } from '../role-drawer/role-drawer.component';
   styles: [],
 })
 export class RoleListComponent extends BaseComponent implements OnInit {
+  keyword = '';
   columns: STColumn[] = [
     {
       title: '角色名称',
@@ -46,7 +47,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
             size: 'lg',
             drawerOptions: { nzMaskClosable: false },
             params: (record: STData) => {
-              return { record };
+              return { record, extra: this.selectNodes };
             },
           },
           click: (_record, modal) => {
@@ -56,55 +57,18 @@ export class RoleListComponent extends BaseComponent implements OnInit {
           },
         },
         {
-          text: '禁用',
-          icon: 'close-circle',
-          type: 'del',
-          popTitle: '确认禁用吗？',
-          click: (_record, modal) => {
-            this.setStatus(_record);
-          },
-          iif: (item: STData, btn: STColumnButton, column: STColumn) => {
-            return item.status === 1;
-          },
-        },
-        {
-          text: '启用',
-          icon: 'check-circle',
-          type: 'del',
-          popTitle: '确认禁用吗？',
-          click: (_record, modal) => {
-            this.setStatus(_record);
-          },
-          iif: (item: STData, btn: STColumnButton, column: STColumn) => {
-            return item.status === 2;
-          },
-        },
-        {
           text: '删除',
           icon: 'delete',
           type: 'del',
           click: (record, _modal, comp) => {
             this.delete(record);
           },
-          iif: (item: STData, btn: STColumnButton, column: STColumn) => {
-            return item.status === 2;
-          },
         },
       ],
     },
   ];
-
-  page: STPage = {
-    show: true,
-    front: true, // 后端分页 改为 false
-    showSize: true,
-    showQuickJumper: true,
-    total: true,
-  };
-
-  searchParams = { Where: { KeyWord: null }, PageIndex: 1, PageSize: 30 };
   list = [];
-
+  selectNodes = [];
   initialRole = {
     parentId: '',
     name: '',
@@ -112,7 +76,13 @@ export class RoleListComponent extends BaseComponent implements OnInit {
     sortNo: 10,
   };
 
-  constructor(injector: Injector, private roleSrv: IRoleService, private modalSrv: ModalService) {
+  constructor(
+    injector: Injector,
+    private moduleSrv: IModuleService,
+    private arrSrv: ArrayService,
+    private roleSrv: IRoleService,
+    private modalSrv: ModalService,
+  ) {
     super(injector);
   }
 
@@ -120,28 +90,13 @@ export class RoleListComponent extends BaseComponent implements OnInit {
     this.refresh();
   }
 
-  refresh(resetPageIndex = true) {
-    if (resetPageIndex) {
-      this.searchParams.PageIndex = 1;
-    }
+  refresh() {
     this.getList();
-  }
-
-  stChange(e: any) {
-    switch (e.type) {
-      case 'pi':
-        this.searchParams.PageIndex = e.pi;
-        this.refresh(false);
-        break;
-      case 'ps':
-        this.searchParams.PageSize = e.ps;
-        this.refresh();
-        break;
-    }
+    this.getModule();
   }
 
   getList() {
-    this.roleSrv.query({ request: this.searchParams as any }).subscribe((x: any) => {
+    this.roleSrv.query({ request: { name: this.keyword } }).subscribe((x: any) => {
       if (!x) {
         return;
       }
@@ -163,7 +118,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
       status: record.status,
       name: record.name,
     };
-    this.modalSrv.edit(RoleEditComponent, { record, Mode: Mode.Edit }).subscribe(x => {
+    this.modalSrv.edit(RoleEditComponent, { record }).subscribe(x => {
       if (x) {
         this.refresh();
       }
@@ -181,19 +136,13 @@ export class RoleListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  setStatus(e: any) {
-    if (e.id !== undefined) {
-      const param = {
-        id: e.id,
-        name: e.name,
-        status: e.status === 1 ? 2 : 1,
-      };
-      this.roleSrv.update({ request: param }).subscribe(x => {
-        this.notifySrv.success();
-        this.getList();
+  getModule() {
+    this.moduleSrv.query({ request: { name: '' } }).subscribe((x: any) => {
+      if (!x) return;
+      this.selectNodes = this.arrSrv.arrToTreeNode(x, {
+        parentIdMapName: 'parentId',
+        titleMapName: 'name',
       });
-    } else {
-      this.notifySrv.info('请选择一条记录！');
-    }
+    });
   }
 }

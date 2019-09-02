@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { DeleteResourceDto } from './deleteResourceDto';
+import { CreateResourceDto } from './createResourceDto';
 
 
 export interface Request25 { 
-    request?: DeleteResourceDto;
+    request?: CreateResourceDto;
 }
