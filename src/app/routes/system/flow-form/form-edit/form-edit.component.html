@@ -9,6 +9,14 @@
     <textarea rows="4" nz-input [(ngModel)]="record.desc" name="record_desc"></textarea>
   </se>
   <se label="表单" required col="1">
-    <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+    <div id="fl-editor" style="width:740px;height:500px;"></div>
   </se>
 </form>
+<div class="drawer-footer">
+  <button nz-button [nzType]="'default'" (click)="cancel()">
+    取消
+  </button>
+  <button nz-button [nzType]="'primary'" (click)="ok()">
+    确定
+  </button>
+</div>

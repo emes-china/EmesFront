@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { STColumn } from '@delon/abc';
 import { ArrayService } from '@delon/util';
-import { BaseComponent, ModalService, StatusColumnBadge } from '@shared';
+import { BaseComponent, ModalService, StatusColumnBadge, DrawerService } from '@shared';
 import { IFormService } from '@System';
 import { FormEditComponent } from '../form-edit/form-edit.component';
 
@@ -40,7 +40,7 @@ export class FormListComponent extends BaseComponent implements OnInit {
           icon: 'edit',
           type: 'link',
           click: (_record, modal) => {
-            this.modalSrv.add(FormEditComponent, { record: _record, extra: this.selectNodes }).subscribe(x => {
+            this.drawerSrv.edit(FormEditComponent, { record: _record, extra: this.selectNodes }).subscribe(x => {
               if (x) {
                 this.refresh();
               }
@@ -63,7 +63,7 @@ export class FormListComponent extends BaseComponent implements OnInit {
     injector: Injector,
     private arrSrv: ArrayService,
     private formSrv: IFormService,
-    private modalSrv: ModalService,
+    private drawerSrv: DrawerService,
   ) {
     super(injector);
   }
@@ -86,7 +86,7 @@ export class FormListComponent extends BaseComponent implements OnInit {
   }
 
   add() {
-    this.modalSrv.add(FormEditComponent, { record: this.initialForm, extra: this.selectNodes }).subscribe(x => {
+    this.drawerSrv.add(FormEditComponent, { record: this.initialForm, extra: this.selectNodes }).subscribe(x => {
       if (x) {
         this.refresh();
       }

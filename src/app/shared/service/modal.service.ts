@@ -5,10 +5,6 @@ import { Observable, Observer } from 'rxjs';
 import { ModalHelperOptions } from '@delon/theme';
 import { deepMerge } from '@delon/util';
 import { Mode } from '@shared/model/mode';
-export abstract class ModalComp {
-  abstract ok(): void;
-  abstract cance(): void;
-}
 
 @Injectable({
   providedIn: NzModalServiceModule,
