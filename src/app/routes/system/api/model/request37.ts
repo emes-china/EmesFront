@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { AuthUserDto } from './authUserDto';
+import { AllocateRoleDto } from './allocateRoleDto';
 
 
 export interface Request37 { 
-    request?: AuthUserDto;
+    request?: AllocateRoleDto;
 }

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { zip } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN } from '@delon/theme';
+import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN, Menu } from '@delon/theme';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { ACLService } from '@delon/acl';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { I18NService } from '../i18n/i18n.service';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { ICONS } from '../../../style-icons';
+import { AppService, ArrayService } from '@shared';
 
 /**
  * Used for application startup
@@ -30,6 +31,8 @@ export class StartupService {
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private httpClient: HttpClient,
     private injector: Injector,
+    private appSrv: AppService,
+    private arrSrv: ArrayService,
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
   }
@@ -55,7 +58,7 @@ export class StartupService {
           // User information: including name, avatar, email address
           this.settingService.setUser(res.user);
           // ACL: Set the permissions to full, https://ng-alain.com/acl/getting-started
-          this.aclService.setFull(true);
+          // this.aclService.setFull(true);
           // Menu data, https://ng-alain.com/theme/menu
           this.menuService.add(res.menu);
           // Can be set page suffix title, https://ng-alain.com/theme/title
@@ -72,7 +75,9 @@ export class StartupService {
     this.httpClient.get(`assets/i18n/${this.i18n.defaultLang}.json`).subscribe(langData => {
       this.translate.setTranslation(this.i18n.defaultLang, langData);
       this.translate.setDefaultLang(this.i18n.defaultLang);
-
+      this.httpClient.get<any>('/api/user/acl').subscribe(acl => {
+        this.aclService.setAbility(acl.abilities);
+      });
       this.viaMock(resolve, reject);
     });
   }
@@ -100,60 +105,76 @@ export class StartupService {
     // User information: including name, avatar, email address
     this.settingService.setUser(user);
     // ACL: Set the permissions to full, https://ng-alain.com/acl/getting-started
-    this.aclService.setFull(true);
+    // this.aclService.setFull(true);
     // Menu data, https://ng-alain.com/theme/menu
-    this.menuService.add([
-      {
-        text: '系统',
-        group: true,
-        children: [
-          {
-            text: '基础配置',
-            icon: { type: 'icon', value: 'appstore' },
-            open: true,
-            children: [
-              {
-                text: '流程设计',
-                link: '/system/flow-scheme',
-              },
-              {
-                text: '表单设计',
-                link: '/system/flow-form',
-              },
-              {
-                text: '部门管理',
-                link: '/system/organization',
-              },
-
-              {
-                text: '模块管理',
-                link: '/system/module',
-              },
-
-              {
-                text: '角色管理',
-                link: '/system/role',
-              },
-              {
-                text: '用户管理',
-                link: '/system/user',
-              },
-            ],
+    if (this.tokenService.get().token) {
+      this.appSrv.enableProbe();
+      this.httpClient
+        .post<any>('/api/module/query', {
+          request: {
+            name: '',
           },
-          {
-            text: '仓库',
-            icon: { type: 'icon', value: 'appstore' },
-            open: true,
-            children: [
-              {
-                text: '库存管理',
-                link: '/stock/inventory',
-              },
-            ],
-          },
-        ],
-      },
-    ]);
+        })
+        .subscribe(x => {
+          const tree = this.arrSrv.arrToTree(x, {
+            parentIdMapName: 'parentId',
+          });
+          this.menuService.clear();
+          this.menuService.add(this.generateMenu(tree));
+        });
+    }
+    // this.menuService.add([
+    //   {
+    //     text: '系统',
+    //     group: true,
+    //     children: [
+    //       {
+    //         text: '基础配置',
+    //         icon: { type: 'icon', value: 'appstore' },
+    //         open: true,
+    //         children: [
+    //           {
+    //             text: '流程设计',
+    //             link: '/system/flow-scheme',
+    //           },
+    //           {
+    //             text: '表单设计',
+    //             link: '/system/flow-form',
+    //           },
+    //           {
+    //             text: '部门管理',
+    //             link: '/system/organization',
+    //           },
+
+    //           {
+    //             text: '模块管理',
+    //             link: '/system/module',
+    //           },
+
+    //           {
+    //             text: '角色管理',
+    //             link: '/system/role',
+    //           },
+    //           {
+    //             text: '用户管理',
+    //             link: '/system/user',
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         text: '仓库',
+    //         icon: { type: 'icon', value: 'appstore' },
+    //         open: true,
+    //         children: [
+    //           {
+    //             text: '库存管理',
+    //             link: '/stock/inventory',
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    // ]);
     // Can be set page suffix title, https://ng-alain.com/theme/title
     this.titleService.suffix = app.name;
 
@@ -169,5 +190,21 @@ export class StartupService {
       // mock：请勿在生产环境中这么使用，viaMock 单纯只是为了模拟一些数据使脚手架一开始能正常运行
       this.viaMockI18n(resolve, reject);
     });
+  }
+  private generateMenu(data: any, isTop: boolean = true): Menu[] {
+    const menu: Menu[] = [];
+    data.forEach((d: any) => {
+      const m: Menu = {
+        text: d.name,
+        link: d.url,
+        icon: { type: 'icon', value: d.icon },
+        // acl: d.aclCode,
+      };
+      if (d.children && d.children.length > 0) {
+        m.children = this.generateMenu(d.children, false);
+      }
+      menu.push(m);
+    });
+    return menu;
   }
 }

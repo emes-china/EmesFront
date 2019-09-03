@@ -7,7 +7,8 @@ import { TreeHelper } from '@shared/utils/nz-tree.helper';
 import { IUserService } from '@System/api/iUser.service';
 import { NzFormatEmitEvent, NzTreeComponent } from 'ng-zorro-antd';
 import { UserEditComponent } from '../user-edit/user-edit.component';
-import { IOrganizationService } from '@System';
+import { IOrganizationService, IRoleService } from '@System';
+import { UserRoleComponent } from '../user-role/user-role.component';
 
 @Component({
   selector: 'zc-user-list',
@@ -72,6 +73,14 @@ export class UserListComponent extends BaseComponent implements OnInit {
             return true;
           },
         },
+        {
+          text: '为用户分配角色',
+          icon: 'plus',
+          type: 'link',
+          click: (_record, modal) => {
+            this.allocate(_record);
+          },
+        },
       ],
     },
   ];
@@ -98,10 +107,14 @@ export class UserListComponent extends BaseComponent implements OnInit {
     status: 1,
   };
 
+  roleList = [];
+  tRoleList = [];
+
   constructor(
     injector: Injector,
     private arrSrv: ArrayService,
     private orgSrv: IOrganizationService,
+    private roleSrv: IRoleService,
     private userSrv: IUserService,
     private modalSrv: ModalService,
   ) {
@@ -116,6 +129,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
   refresh() {
     this.getList();
     this.getSubItem();
+    this.getRoleList();
   }
 
   all() {
@@ -135,6 +149,13 @@ export class UserListComponent extends BaseComponent implements OnInit {
         parentIdMapName: 'parentId',
         titleMapName: 'name',
       });
+    });
+  }
+
+  getRoleList() {
+    this.roleSrv.query({ request: { name: '' } }).subscribe((x: any) => {
+      if (!x) return;
+      this.roleList = x;
     });
   }
 
@@ -180,6 +201,25 @@ export class UserListComponent extends BaseComponent implements OnInit {
     } else {
       this.notifySrv.info('请选择需要删除的记录！');
     }
+  }
+
+  allocate(record) {
+    this.userSrv.queryuserrole({ request: { id: record.id } }).subscribe((r: any) => {
+      this.tRoleList = [];
+      this.roleList.forEach(x => {
+        const t = {
+          id: x.id,
+          title: x.name,
+          direction: r.some(i => i.roleId == x.id) ? 'right' : 'left',
+        };
+        this.tRoleList.push(t);
+      });
+      this.modalSrv.edit(UserRoleComponent, { record, Mode: Mode.Edit, extra: this.tRoleList }).subscribe(x => {
+        if (x) {
+          this.refresh();
+        }
+      });
+    });
   }
 
   async expandChange(e: NzFormatEmitEvent) {

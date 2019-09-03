@@ -8,9 +8,9 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateUserDto } from './createUserDto';
+import { QueryUserRoleDto } from './queryUserRoleDto';
 
 
-export interface Request40 { 
-    request?: CreateUserDto;
+export interface Request43 { 
+    request?: QueryUserRoleDto;
 }

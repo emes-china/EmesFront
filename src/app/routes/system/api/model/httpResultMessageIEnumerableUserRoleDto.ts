@@ -8,9 +8,12 @@
  * Copyright (c) 2019-present anber<shuangyan_m@hotmail.com>
  * Do not edit the class manually.
  */
-import { CreateUserDto } from './createUserDto';
+import { UserRoleDto } from './userRoleDto';
 
 
-export interface Request40 { 
-    request?: CreateUserDto;
+export interface HttpResultMessageIEnumerableUserRoleDto { 
+    entity?: Array<UserRoleDto>;
+    isSucceed?: boolean;
+    message?: string;
+    statusCode?: number;
 }

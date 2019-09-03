@@ -3,10 +3,11 @@ import { SharedModule } from '@shared';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserRoutingModule } from './user-routing.module';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserRoleComponent } from './user-role/user-role.component';
 
 @NgModule({
-  declarations: [UserListComponent, UserEditComponent],
+  declarations: [UserListComponent, UserEditComponent, UserRoleComponent],
   imports: [SharedModule, UserRoutingModule],
-  entryComponents: [UserEditComponent],
+  entryComponents: [UserEditComponent, UserRoleComponent],
 })
 export class UserModule {}

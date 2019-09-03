@@ -9,6 +9,7 @@ import { environment } from '@env/environment';
 import { StartupService } from '@core';
 import { AppService } from '@shared';
 import { Subscription } from 'rxjs';
+import { ACLService } from '@delon/acl';
 
 @Component({
   selector: 'passport-login',
@@ -123,6 +124,7 @@ export class UserLoginComponent implements OnDestroy {
         token: res,
       };
       this.tokenService.set(token);
+
       const user = this.settingsService.user;
       user.name = this.userName.value;
       this.settingsService.setUser(user);

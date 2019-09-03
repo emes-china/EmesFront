@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 import { tap, map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { fromEvent, merge, Subscription } from 'rxjs';
-import { subMinutes, differenceInMinutes } from 'date-fns';
+import { subMinutes, differenceInMinutes, addMinutes } from 'date-fns';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
 @Injectable({
@@ -36,7 +36,7 @@ export class AppService {
             userName,
             password,
           };
-          this.tokenTimespan = subMinutes(new Date(), 25); // 加25分钟
+          this.tokenTimespan = addMinutes(new Date(), 25); // 加25分钟
         }),
       );
   }
@@ -58,7 +58,7 @@ export class AppService {
         this.activeTimespen = new Date();
       });
     this.difIntv = setInterval(() => {
-      const difTokenTime = differenceInMinutes(new Date(), this.tokenTimespan);
+      const difTokenTime = differenceInMinutes(this.tokenTimespan, new Date());
       const difActiveTime = differenceInMinutes(new Date(), this.activeTimespen);
       if (difTokenTime >= 0 && difTokenTime <= 4 && difActiveTime < 25) {
         this.login(this.user.userName, this.user.password).subscribe(res => {
@@ -67,6 +67,9 @@ export class AppService {
           };
           this.tokenService.set(token);
         });
+      }
+      if (difTokenTime > 28) {
+        this.tokenService.clear();
       }
     }, 1000 * 60);
   }
