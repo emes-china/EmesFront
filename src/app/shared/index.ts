@@ -16,3 +16,5 @@ export * from './service/modal.service';
 export * from './service/drawer.service';
 export * from './model/mode';
 export * from './model/status-type';
+
+export * from './flow-scheme/lang/customTranslate';

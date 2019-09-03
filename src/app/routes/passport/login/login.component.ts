@@ -7,6 +7,8 @@ import { SocialService, SocialOpenType, ITokenService, DA_SERVICE_TOKEN } from '
 import { ReuseTabService } from '@delon/abc';
 import { environment } from '@env/environment';
 import { StartupService } from '@core';
+import { AppService } from '@shared';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'passport-login',
@@ -15,6 +17,7 @@ import { StartupService } from '@core';
   providers: [SocialService],
 })
 export class UserLoginComponent implements OnDestroy {
+  loginSub$: Subscription;
   constructor(
     fb: FormBuilder,
     modalSrv: NzModalService,
@@ -28,6 +31,7 @@ export class UserLoginComponent implements OnDestroy {
     private startupSrv: StartupService,
     public http: _HttpClient,
     public msg: NzMessageService,
+    private appSrv: AppService,
   ) {
     this.form = fb.group({
       userName: [null, [Validators.required, Validators.minLength(4)]],
@@ -107,37 +111,30 @@ export class UserLoginComponent implements OnDestroy {
 
     // 默认配置中对所有HTTP请求都会强制 [校验](https://ng-alain.com/auth/getting-started) 用户 Token
     // 然一般来说登录请求不需要校验，因此可以在请求URL加上：`/login?_allow_anonymous=true` 表示不触发用户 Token 校验
-    this.http
-      .post('/api/user/authentication?_allow_anonymous=true', {
-        request: {
-          userName: this.userName.value,
-          password: this.password.value,
-        },
-      })
-      .subscribe((res: any) => {
-        // if (!res.isSucceed) {
-        //   this.error = res.message;
-        //   return;
-        // }
-        // 清空路由复用信息
-        this.reuseTabService.clear();
-        // 设置用户Token信息
-        const token = {
-          token: res,
-        };
-        this.tokenService.set(token);
-        const user = this.settingsService.user;
-        user.name = this.userName.value;
-        this.settingsService.setUser(user);
-        // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
-        this.startupSrv.load().then(() => {
-          let url = this.tokenService.referrer!.url || '/';
-          if (url.includes('/passport')) {
-            url = '/';
-          }
-          this.router.navigateByUrl(url);
-        });
+    this.loginSub$ = this.appSrv.login(this.userName.value, this.password.value).subscribe((res: any) => {
+      // if (!res.isSucceed) {
+      //   this.error = res.message;
+      //   return;
+      // }
+      // 清空路由复用信息
+      this.reuseTabService.clear();
+      // 设置用户Token信息
+      const token = {
+        token: res,
+      };
+      this.tokenService.set(token);
+      const user = this.settingsService.user;
+      user.name = this.userName.value;
+      this.settingsService.setUser(user);
+      // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
+      this.startupSrv.load().then(() => {
+        let url = this.tokenService.referrer!.url || '/';
+        if (url.includes('/passport')) {
+          url = '/';
+        }
+        this.router.navigateByUrl(url);
       });
+    });
   }
 
   // #region social
@@ -191,6 +188,9 @@ export class UserLoginComponent implements OnDestroy {
   ngOnDestroy(): void {
     if (this.interval$) {
       clearInterval(this.interval$);
+    }
+    if (this.loginSub$) {
+      this.loginSub$.unsubscribe();
     }
   }
 }

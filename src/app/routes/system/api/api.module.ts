@@ -17,6 +17,7 @@ import { IOrganizationService } from './api/iOrganization.service';
 import { IPostService } from './api/iPost.service';
 import { IResourceService } from './api/iResource.service';
 import { IRoleService } from './api/iRole.service';
+import { ISchemeService } from './api/iScheme.service';
 import { ITestService } from './api/iTest.service';
 import { IUserService } from './api/iUser.service';
 
@@ -31,6 +32,7 @@ import { IUserService } from './api/iUser.service';
     IPostService,
     IResourceService,
     IRoleService,
+    ISchemeService,
     ITestService,
     IUserService ]
 })

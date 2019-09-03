@@ -22,7 +22,9 @@
       "@layout/*": ["src/app/layout/*"],
       "@env/*": ["src/environments/*"],
       "@System": ["src/app/routes/system/api/index"],
-      "@System/*": ["src/app/routes/system/api/*"]
+      "@System/*": ["src/app/routes/system/api/*"],
+      "@Stock": ["src/app/routes/stock/api/index"],
+      "@Stock/*": ["src/app/routes/stock/api/*"]
     }
   },
   "angularCompilerOptions": {
