@@ -198,7 +198,7 @@ export class StartupService {
         text: d.name,
         link: d.url,
         icon: { type: 'icon', value: d.icon },
-        // acl: d.aclCode,
+        acl: d.aclCode,
       };
       if (d.children && d.children.length > 0) {
         m.children = this.generateMenu(d.children, false);
