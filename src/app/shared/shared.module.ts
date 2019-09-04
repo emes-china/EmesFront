@@ -18,8 +18,10 @@ import { CountdownModule } from 'ngx-countdown';
 const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
 // #endregion
 
+import { DiagramComponent } from './flow-scheme/diagram/diagram.component';
+
 // #region your componets & directives
-const COMPONENTS = [];
+const COMPONENTS = [DiagramComponent];
 const DIRECTIVES = [];
 // #endregion
 

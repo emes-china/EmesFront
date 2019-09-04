@@ -18,7 +18,7 @@
       </button>
     </ng-template>
   </div>
-  <div>
+  <div [acl]="'xinjiancaidan'">
     <button type="button" nz-button nzType="default" nzSize="small" (click)="add($event)">
       <i nz-icon nzType="plus" nzTheme="outline"></i>
       新增菜单

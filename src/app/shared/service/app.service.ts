@@ -42,6 +42,7 @@ export class AppService {
   }
 
   enableProbe() {
+    return;
     if (this.probeSub$) {
       this.probeSub$.unsubscribe();
     }

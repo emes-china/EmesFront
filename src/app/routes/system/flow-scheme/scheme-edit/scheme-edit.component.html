@@ -1,4 +1,8 @@
-<div id="canvas"></div>
+<zc-diagram
+  style="width:1100px;height:680px;display: block"
+  [url]="diagramUrl"
+  (importDone)="handleImported($event)"
+></zc-diagram>
 <div class="drawer-footer">
   <button nz-button [nzType]="'default'" (click)="cancel()">
     取消
