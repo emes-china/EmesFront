@@ -19,10 +19,12 @@ const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
 // #endregion
 
 import { DiagramComponent } from './flow-scheme/diagram/diagram.component';
+import { StatusPipe } from './pipes/status.pipe';
 
 // #region your componets & directives
 const COMPONENTS = [DiagramComponent];
 const DIRECTIVES = [];
+const PIPES = [StatusPipe];
 // #endregion
 
 @NgModule({
@@ -43,6 +45,7 @@ const DIRECTIVES = [];
     // your components
     ...COMPONENTS,
     ...DIRECTIVES,
+    ...PIPES,
   ],
   exports: [
     CommonModule,
@@ -61,6 +64,7 @@ const DIRECTIVES = [];
     // your components
     ...COMPONENTS,
     ...DIRECTIVES,
+    ...PIPES,
   ],
 })
 export class SharedModule {}

@@ -16,6 +16,7 @@ export class RoleDrawerComponent {
   isShowNextBtn = true; // 是否显示下一步按钮
   private _record: any;
   private _extra: any;
+  fields=[];
   @Input()
   set record(value: any) {
     if (value) {

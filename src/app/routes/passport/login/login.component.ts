@@ -35,8 +35,8 @@ export class UserLoginComponent implements OnDestroy {
     private appSrv: AppService,
   ) {
     this.form = fb.group({
-      userName: [null, [Validators.required, Validators.minLength(4)]],
-      password: [null, Validators.required],
+      userName: ['admin', [Validators.required, Validators.minLength(4)]],
+      password: ['123456', Validators.required],
       mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
       captcha: [null, [Validators.required]],
       remember: [true],
@@ -129,13 +129,15 @@ export class UserLoginComponent implements OnDestroy {
       user.name = this.userName.value;
       this.settingsService.setUser(user);
       // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
-      this.startupSrv.load().then(() => {
-        let url = this.tokenService.referrer!.url || '/';
-        if (url.includes('/passport')) {
-          url = '/';
-        }
-        this.router.navigateByUrl(url);
-      });
+      setTimeout(() => {
+        this.startupSrv.load().then(() => {
+          let url = this.tokenService.referrer!.url || '/';
+          if (url.includes('/passport')) {
+            url = '/';
+          }
+          this.router.navigateByUrl(url);
+        });
+      }, 50);
     });
   }
 
